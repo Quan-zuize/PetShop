@@ -1,6 +1,13 @@
-﻿namespace PetShop.DataAccess
+﻿using PetShop.Infrastructure;
+using PetShop.Models;
+
+namespace PetShop.DataAccess
 {
-    public class CustomerDA
+    public interface ICustomerRepository : IRepository<Customer> { }
+    public class CustomerDA : RepositoryBase<Customer>, ICustomerRepository
     {
+        public CustomerDA(IDbFactory dbFactory) : base(dbFactory)
+        {
+        }
     }
 }
