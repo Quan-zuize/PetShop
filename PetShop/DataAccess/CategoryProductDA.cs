@@ -1,7 +1,16 @@
-﻿namespace PetShop.DataAccess
+﻿using PetShop.Infrastructure;
+using PetShop.Models;
+
+namespace PetShop.DataAccess
 {
-    public class CategoryProductDA
+    public interface ICategoryProductRepository : IRepository<CategoryProduct>
     {
 
+    }
+    public class CategoryProductDA : RepositoryBase<CategoryProduct>, ICategoryProductRepository
+    {
+        public CategoryProductDA(IDbFactory dbFactory) : base(dbFactory)
+        {
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace PetShop.Service.Categories
 {
     public class CategoryService : ICategoryService
     {
-        CategoryDA _categoryRepos;
+        ICategoryRepository _categoryRepos;
         IUnitOfWork _unitOfWork;
 
         public CategoryService(CategoryDA categoryRepos, IUnitOfWork unitOfWork)

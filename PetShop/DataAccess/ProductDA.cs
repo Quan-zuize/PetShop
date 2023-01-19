@@ -3,12 +3,12 @@ using PetShop.Models;
 
 namespace PetShop.DataAccess
 {
-    public interface IProductCategoryRepository
+    public interface IProductRepository : IRepository<Product>
     {
-        IEnumerable<Product> GetByName(string name);
+        //IEnumerable<Product> GetByName(string name);
         IEnumerable<Product> GetAllByCategory(int categoryId, int pageIndex, int pageSize, out int totalRow);
     }
-    public class ProductDA : RepositoryBase<Product>, IProductCategoryRepository
+    public class ProductDA : RepositoryBase<Product>, IProductRepository
     {
         public ProductDA(IDbFactory dbFactory) : base(dbFactory)
         {
@@ -26,10 +26,10 @@ namespace PetShop.DataAccess
             return query;
         }
 
-        public IEnumerable<Product> GetByName(string name)
-        {
-            return this.DbContext.Products.Where(p => p.Name == name);
-        }
+        //public IEnumerable<Product> GetByName(string name)
+        //{
+        //    return this.DbContext.Products.Where(p => p.Name == name);
+        //}
 
     }
 }

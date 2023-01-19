@@ -6,7 +6,7 @@ namespace PetShop.Service.Products
 {
     public class ProductService : IProductService
     {
-        ProductDA _productRepos;
+        IProductRepository _productRepos;
         IUnitOfWork _unitOfWork;
         public ProductService(ProductDA productRepos, IUnitOfWork unitOfWork)
         {

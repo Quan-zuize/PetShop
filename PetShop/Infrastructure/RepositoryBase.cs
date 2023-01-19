@@ -1,14 +1,13 @@
-﻿using PetShop.Models;
-using System.Data.Entity;
+﻿using Microsoft.EntityFrameworkCore;
+using PetShop.Models;
 using System.Linq.Expressions;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-
 namespace PetShop.Infrastructure
 {
     public abstract class RepositoryBase<T> : IRepository<T> where T : class
     {
-        private CodecampN3Context context;
-        private readonly IDbSet<T> dbSet;
+        protected CodecampN3Context context;
+        protected DbSet<T> dbSet;
+        //protected readonly ILogger _logger;
 
         protected IDbFactory DbFactory
         {
@@ -18,13 +17,14 @@ namespace PetShop.Infrastructure
         {
             get
             {
-                return context ?? (context = DbFactory.Init());
+                return context ??= DbFactory.Init();
             }    
         }
-        protected RepositoryBase(IDbFactory dbFactory)
+
+        public RepositoryBase(IDbFactory dbFactory)
         {
             DbFactory = dbFactory;
-            dbSet = (IDbSet<T>?)DbContext.Set<T>();
+            dbSet = DbContext.Set<T>();
         }
 
         #region Implemetation
@@ -54,17 +54,17 @@ namespace PetShop.Infrastructure
 
         public virtual T GetById(int id)
         {
-            return context.Set<T>().Find(id);
+            return dbSet.Find(id);
         }
 
         public virtual IEnumerable<T> GetAll()
         {
-            return context.Set<T>().ToList();
+            return dbSet.ToList();
         }
 
         public virtual IEnumerable<T> Find(Expression<Func<T, bool>> expression)
         {
-            return context.Set<T>().Where(expression);
+            return dbSet.Where(expression);
         }
 
         public virtual IQueryable<T> GetMultiPaging(Expression<Func<T, bool>> expression, out int total, int index = 0, int size = 20, string[] includes = null)
@@ -82,7 +82,7 @@ namespace PetShop.Infrastructure
             }
             else
             {
-                _resetSet = expression != null ? context.Set<T>().Where(expression).AsQueryable() : context.Set<T>().AsQueryable();
+                _resetSet = expression != null ? dbSet.Where(expression).AsQueryable() : dbSet.AsQueryable();
             }
             _resetSet = skipCount == 0 ? _resetSet.Take(size) : _resetSet.Skip(skipCount).Take(size);
             total = _resetSet.Count();
