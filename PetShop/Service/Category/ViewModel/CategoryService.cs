@@ -1,6 +1,7 @@
 ﻿using PetShop.Bussiness.Categories;
 using PetShop.DataAccess;
 using PetShop.Infrastructure;
+using PetShop.IRepositories;
 using PetShop.Models;
 
 namespace PetShop.Service.Categories
@@ -28,7 +29,7 @@ namespace PetShop.Service.Categories
 
         public IEnumerable<Category> GetAll()
         {
-            return _categoryRepos.GetAll();
+            return _categoryRepos.GetAll().Result;
         }
 
         public Category GetById(int id)

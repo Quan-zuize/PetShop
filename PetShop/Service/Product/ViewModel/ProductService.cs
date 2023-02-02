@@ -1,5 +1,6 @@
 ﻿using PetShop.DataAccess;
 using PetShop.Infrastructure;
+using PetShop.IRepositories;
 using PetShop.Models;
 
 namespace PetShop.Service.Products
@@ -8,7 +9,7 @@ namespace PetShop.Service.Products
     {
         IProductRepository _productRepos;
         IUnitOfWork _unitOfWork;
-        public ProductService(ProductDA productRepos, IUnitOfWork unitOfWork)
+        public ProductService(ProductDA productRepos, UnitOfWork unitOfWork)
         {
             this._productRepos = productRepos;
             this._unitOfWork = unitOfWork; 
@@ -29,7 +30,7 @@ namespace PetShop.Service.Products
 
         public IEnumerable<Product> GetAll()
         {
-            return _productRepos.GetAll();
+            return _productRepos.GetAll().Result;
         }
 
         public IEnumerable<Product> GetAllPaging(int categoryId, int page, int pageSize, out int totalRow)

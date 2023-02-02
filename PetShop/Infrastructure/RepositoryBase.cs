@@ -1,70 +1,108 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Dapper;
+using Microsoft.EntityFrameworkCore;
 using PetShop.Models;
+
 using System.Linq.Expressions;
 namespace PetShop.Infrastructure
 {
-    public abstract class RepositoryBase<T> : IRepository<T> where T : class
+    public class RepositoryBase<T> : IRepository<T> where T : BaseEntity
     {
         protected CodecampN3Context context;
-        protected DbSet<T> dbSet;
-        //protected readonly ILogger _logger;
+        protected Microsoft.EntityFrameworkCore.DbSet<T> dbSet;
 
-        protected IDbFactory DbFactory
-        {
-            get; set;
-        }
         protected CodecampN3Context DbContext
         {
             get
             {
-                return context ??= DbFactory.Init();
+                return context ??= new CodecampN3Context();
             }    
         }
 
-        public RepositoryBase(IDbFactory dbFactory)
+        public RepositoryBase(CodecampN3Context context)
         {
-            DbFactory = dbFactory;
+            this.context = context;
             dbSet = DbContext.Set<T>();
         }
 
         #region Implemetation
-        public virtual void Add(T entity)
+        public virtual async Task<T> Add(T entity)
         {
-            dbSet.Add(entity);
+            if (entity == null)
+            {
+                throw new ArgumentNullException($"No {nameof(T)}  Entity was provided for Insert");
+            }
+            await dbSet.AddAsync(entity);
+            return entity;
         }
 
-        public virtual void Update(T entity)
+        public virtual async Task<T> Update(T entity)
         {
-            dbSet.Attach(entity);
-            context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            T entityToUpdate = await dbSet.AsNoTracking().SingleOrDefaultAsync(e => e.Id == entity.Id);
+            if (entityToUpdate == null)
+            {
+                //return null;
+                throw new ArgumentNullException($"No {nameof(T)}  Entity was provided for Update");
+            }
+            dbSet.Update(entity);
+            return entity;
         }
-        public virtual void Delete(T entity)
+        public virtual async Task<T> Delete(T entity)
         {
-            dbSet.Remove(entity);
-        }
-
-        public virtual void Delete(int id)
-        {
-            var entity = dbSet.Find(id);
-            if (entity != null)
+            try
             {
                 dbSet.Remove(entity);
+                return await Task.FromResult(entity);
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
+        }
+
+        public virtual async Task<T> Delete(int id)
+        {
+            try
+            {
+                var entity = GetById(id);
+
+                if (entity != null)
+                {
+                    dbSet.Remove(entity);
+                }
+                return await Task.FromResult(entity);
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
         }
 
         public virtual T GetById(int id)
         {
-            return dbSet.Find(id);
+            try
+            {
+                return dbSet.Find(id);
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
         }
 
-        public virtual IEnumerable<T> GetAll()
+        public virtual async Task<IEnumerable<T>> GetAll()
         {
-            return dbSet.ToList();
+            try
+            {
+                return await dbSet.ToListAsync();
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
         }
 
-        public virtual IEnumerable<T> Find(Expression<Func<T, bool>> expression)
+        public virtual async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> expression)
         {
-            return dbSet.Where(expression);
+            return await dbSet.Where(expression).ToListAsync();
         }
 
         public virtual IQueryable<T> GetMultiPaging(Expression<Func<T, bool>> expression, out int total, int index = 0, int size = 20, string[] includes = null)

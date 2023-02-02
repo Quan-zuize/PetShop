@@ -1,18 +1,20 @@
 ﻿using PetShop.Infrastructure;
+using PetShop.IRepositories;
 using PetShop.Models;
+using Dapper;
 
 namespace PetShop.DataAccess
 {
-    public interface IProductRepository : IRepository<Product>
-    {
-        //IEnumerable<Product> GetByName(string name);
-        IEnumerable<Product> GetAllByCategory(int categoryId, int pageIndex, int pageSize, out int totalRow);
-    }
     public class ProductDA : RepositoryBase<Product>, IProductRepository
     {
-        public ProductDA(IDbFactory dbFactory) : base(dbFactory)
+        public ProductDA(CodecampN3Context context) : base(context)
         {
         }
+
+        //public Task<IEnumerable<Product>> GetAllProductsAsync(int pageIndex, int pageSize)
+        //{
+        //    using (var connection = )
+        //}
 
         public IEnumerable<Product> GetAllByCategory(int categoryId, int pageIndex, int pageSize, out int totalRow)
         {

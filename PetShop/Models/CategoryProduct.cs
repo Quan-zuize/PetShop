@@ -1,12 +1,11 @@
-﻿using System;
+﻿using PetShop.Infrastructure;
+using System;
 using System.Collections.Generic;
 
 namespace PetShop.Models;
 
-public partial class CategoryProduct
+public partial class CategoryProduct : BaseEntity
 {
-    public int Id { get; set; }
-
     public int? ProductId { get; set; }
 
     public int? CategoryId { get; set; }
