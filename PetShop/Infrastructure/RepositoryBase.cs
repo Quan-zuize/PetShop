@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using PetShop.Models;
 
 using System.Linq.Expressions;
+using static Dapper.SqlMapper;
+
 namespace PetShop.Infrastructure
 {
     public class RepositoryBase<T> : IRepository<T> where T : BaseEntity
@@ -15,7 +17,7 @@ namespace PetShop.Infrastructure
             get
             {
                 return context ??= new CodecampN3Context();
-            }    
+            }
         }
 
         public RepositoryBase(CodecampN3Context context)
@@ -25,95 +27,121 @@ namespace PetShop.Infrastructure
         }
 
         #region Implemetation
-        public virtual async Task<T> Add(T entity)
+        public virtual void Add(T entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException($"No {nameof(T)}  Entity was provided for Insert");
             }
-            await dbSet.AddAsync(entity);
-            return entity;
+            dbSet.Add(entity);
         }
-
-        public virtual async Task<T> Update(T entity)
-        {
-            T entityToUpdate = await dbSet.AsNoTracking().SingleOrDefaultAsync(e => e.Id == entity.Id);
-            if (entityToUpdate == null)
-            {
-                //return null;
-                throw new ArgumentNullException($"No {nameof(T)}  Entity was provided for Update");
-            }
-            dbSet.Update(entity);
-            return entity;
-        }
-        public virtual async Task<T> Delete(T entity)
+        public virtual void Update(T entity)
         {
             try
             {
+                dbSet.Attach(entity);
+                context.Entry(entity).State = EntityState.Modified;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            //T entityToUpdate = dbSet.AsNoTracking().SingleOrDefault(e => e.Id == entity.Id);
+            //if (entityToUpdate == null)
+            //{
+            //    throw new ArgumentNullException($"No {nameof(T)}  Entity was provided for Update");
+            //}
+            //dbSet.Update(entity);
+        }
+        public virtual void Delete(T entity)
+        {
+            try
+            {
+                if(context.Entry(entity).State == EntityState.Detached)
+                {
+                    dbSet.Attach(entity);
+                }
                 dbSet.Remove(entity);
-                return await Task.FromResult(entity);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-
-        public virtual async Task<T> Delete(int id)
+        public virtual void Delete(int id)
         {
             try
             {
                 var entity = GetById(id);
-
                 if (entity != null)
                 {
                     dbSet.Remove(entity);
                 }
-                return await Task.FromResult(entity);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-            
         }
-
         public virtual T GetById(int id)
         {
             try
             {
+                //return dbSet.SingleOrDefault(s => s.Id == id);
                 return dbSet.Find(id);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-            
-        }
 
-        public virtual async Task<IEnumerable<T>> GetAll()
+        }
+        public virtual IEnumerable<T> GetAll()
         {
             try
             {
-                return await dbSet.ToListAsync();
-            }catch(Exception ex)
+                return dbSet.AsEnumerable().ToList();
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
 
         }
 
-        public virtual async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> expression)
+        public virtual IEnumerable<T> Get(Expression<Func<T, bool>> expression, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, string includeProperties)
         {
-            return await dbSet.Where(expression).ToListAsync();
+            IQueryable<T> query = dbSet;
+            if(expression != null)
+            {
+                query = query.Where(expression);
+            }
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+            if (orderBy != null)
+            {
+                return orderBy(query).ToList();
+            }
+            else
+            {
+                return query.ToList();
+            }
         }
 
         public virtual IQueryable<T> GetMultiPaging(Expression<Func<T, bool>> expression, out int total, int index = 0, int size = 20, string[] includes = null)
         {
             int skipCount = index * size;
             IQueryable<T> _resetSet;
-            
-            if(includes != null && includes.Length > 0)
+
+            if (includes != null && includes.Length > 0)
             {
                 var query = context.Set<T>().Include(includes.First());
-                foreach(var include in includes.Skip(1)) {
+                foreach (var include in includes.Skip(1))
+                {
                     query = query.Include(include);
                 }
                 _resetSet = expression != null ? query.Where(expression).AsQueryable() : query.AsQueryable();

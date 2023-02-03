@@ -29,7 +29,7 @@ namespace PetShop.Service.Categories
 
         public IEnumerable<Category> GetAll()
         {
-            return _categoryRepos.GetAll().Result;
+            return _categoryRepos.GetAll();
         }
 
         public Category GetById(int id)

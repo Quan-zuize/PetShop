@@ -2,12 +2,11 @@
 
 namespace PetShop.Infrastructure
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
-        ICategoryProductRepository CategoryProducts { get; }
-        ICategoryRepository Categories { get; }
-        IProductRepository Products { get; }
-        Task CompleteAsync();
+        //ICategoryProductRepository CategoryProducts { get; }
+        //ICategoryRepository Categories { get; }
+        //IProductRepository Products { get; }
         void Commit();
     }
 }

@@ -15,19 +15,20 @@ namespace PetShop.Controllers
     public class ProductsController : Controller
     {
         private readonly CodecampN3Context context;
-        private readonly UnitOfWork unitOfWork;
+        private UnitOfWork unitOfWork = new UnitOfWork();
         public ProductService ProductService { get; private set; }
 
-        public ProductsController(UnitOfWork unitOfWork)
-        {
-            this.unitOfWork = unitOfWork;
-            //ProductService = new ProductService(productDA, unitOfWork);
-        }
+        //public ProductsController(UnitOfWork unitOfWork)
+        //{
+        //    this.unitOfWork = unitOfWork;
+        //    ProductService = new ProductService(productDA, unitOfWork);
+        //}
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-              return View(ProductService.GetAll().ToList());
+             var products = unitOfWork.Products.GetMultiPaging(null,out int total,0,3,null);
+             return View(products.ToList());
         }
 
         // GET: Products/Details/5

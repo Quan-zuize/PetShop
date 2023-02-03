@@ -4,32 +4,46 @@ using PetShop.Models;
 
 namespace PetShop.Infrastructure
 {
-    public class UnitOfWork : IUnitOfWork, IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
         private CodecampN3Context context;
+        private RepositoryBase<Product> productRepository;
+        private RepositoryBase<Category> categoryRepository;
 
-        public ICategoryProductRepository CategoryProducts { get; set; }
-
-        public ICategoryRepository Categories { get; set; }
-        public IProductRepository Products { get; set; }
-
-        public UnitOfWork(CodecampN3Context context)
-        {
-            this.context = context;
-            
-            Categories = new CategoryDA(context);
-            CategoryProducts = new CategoryProductDA(context);
-            Products = new ProductDA(context);
+        public RepositoryBase<Category> Categories { get
+            {
+                if (categoryRepository == null)
+                {
+                    categoryRepository = new CategoryDA(context);
+                }
+                return categoryRepository;
+            } 
         }
+        public RepositoryBase<Product> Products
+        {
+            get
+            {
+                if (productRepository == null)
+                {
+                    productRepository = new ProductDA(context);
+                }
+                return productRepository;
+            }
+
+        }
+
+        //public UnitOfWork(CodecampN3Context context)
+        //{
+        //    this.context = context;
+
+        //    Categories = new CategoryDA(context);
+        //    CategoryProducts = new CategoryProductDA(context);
+        //    Products = new ProductDA(context);
+        //}
 
         public void Commit()
         {
             context.SaveChanges();
-        }
-
-        public async Task CompleteAsync()
-        {
-            await context.SaveChangesAsync();
         }
 
         private bool disposedValue = false;

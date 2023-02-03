@@ -30,7 +30,7 @@ namespace PetShop.Service.Products
 
         public IEnumerable<Product> GetAll()
         {
-            return _productRepos.GetAll().Result;
+            return _productRepos.GetAll();
         }
 
         public IEnumerable<Product> GetAllPaging(int categoryId, int page, int pageSize, out int totalRow)

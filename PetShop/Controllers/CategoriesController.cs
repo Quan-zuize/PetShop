@@ -30,7 +30,7 @@ namespace PetShop.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-              return View(await unitOfWork.Categories.GetAll());
+              return View(unitOfWork.Categories.GetAll());
         }
 
         // GET: Categories/Details/5
