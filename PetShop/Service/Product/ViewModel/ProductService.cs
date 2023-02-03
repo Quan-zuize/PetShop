@@ -1,5 +1,6 @@
 ﻿using PetShop.DataAccess;
 using PetShop.Infrastructure;
+using PetShop.IRepositories;
 using PetShop.Models;
 
 namespace PetShop.Service.Products
@@ -8,7 +9,7 @@ namespace PetShop.Service.Products
     {
         IProductRepository _productRepos;
         IUnitOfWork _unitOfWork;
-        public ProductService(ProductDA productRepos, IUnitOfWork unitOfWork)
+        public ProductService(ProductDA productRepos, UnitOfWork unitOfWork)
         {
             this._productRepos = productRepos;
             this._unitOfWork = unitOfWork; 

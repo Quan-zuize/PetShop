@@ -1,15 +1,13 @@
 ﻿using PetShop.Infrastructure;
+using PetShop.IRepositories;
 using PetShop.Models;
 
 namespace PetShop.DataAccess
 {
-    public interface IOrderDetailRepository : IRepository<OrderDetail>
-    {
-
-    }
+    
     public class OrderDetailDA : RepositoryBase<OrderDetail>, IOrderDetailRepository
     {
-        public OrderDetailDA(IDbFactory dbFactory) : base(dbFactory)
+        public OrderDetailDA(CodecampN3Context context) : base(context)
         {
         }
     }

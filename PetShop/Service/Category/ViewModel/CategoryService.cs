@@ -1,6 +1,7 @@
 ﻿using PetShop.Bussiness.Categories;
 using PetShop.DataAccess;
 using PetShop.Infrastructure;
+using PetShop.IRepositories;
 using PetShop.Models;
 
 namespace PetShop.Service.Categories
