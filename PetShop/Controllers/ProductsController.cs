@@ -14,9 +14,15 @@ namespace PetShop.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly CodecampN3Context context;
-        private UnitOfWork unitOfWork = new UnitOfWork();
-        public ProductService ProductService { get; private set; }
+
+        //private readonly CodecampN3Context context;
+        //private UnitOfWork unitOfWork = new UnitOfWork();
+        public ProductService ProductService;
+
+        public ProductsController(ProductService productService)
+        {
+            ProductService = productService;
+        }
 
         //public ProductsController(UnitOfWork unitOfWork)
         //{
@@ -25,10 +31,12 @@ namespace PetShop.Controllers
         //}
 
         // GET: Products
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int pageIndex = 0, int pageSize = 3)
         {
-             var products = unitOfWork.Products.GetMultiPaging(null,out int total,0,3,null);
-             return View(products.ToList());
+            //var products = await unitOfWork.Products.GetMultiPaged(pageIndex, pageSize);
+            //var products = unitOfWork.Products.GetMultiPaging(null, out int total, pageIndex, pageSize, null);
+            var products = ProductService.GetAll();
+            return View(products);
         }
 
         // GET: Products/Details/5

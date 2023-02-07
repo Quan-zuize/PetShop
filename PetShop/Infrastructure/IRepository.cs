@@ -15,5 +15,6 @@ namespace PetShop.Infrastructure
         Func<IQueryable<T>, IOrderedQueryable<T>> orderBy,
             string includeProperties);
         IQueryable<T> GetMultiPaging(Expression<Func<T, bool>> expression, out int total, int index, int size, string[]includes = null);
+        Task<IEnumerable<T>> GetMultiPaged(int pageIndex, int pageSize);
     }
 }
