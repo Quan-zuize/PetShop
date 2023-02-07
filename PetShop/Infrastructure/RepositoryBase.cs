@@ -154,6 +154,11 @@ namespace PetShop.Infrastructure
             total = _resetSet.Count();
             return _resetSet.AsQueryable();
         }
+
+        public async Task<IEnumerable<T>> GetMultiPaged(int pageIndex, int pageSize)
+        {
+            return await dbSet.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
+        }
         #endregion
     }
 }
