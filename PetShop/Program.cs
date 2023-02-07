@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using PetShop.DataAccess;
 using PetShop.Infrastructure;
+using PetShop.IRepositories;
 using PetShop.Models;
+using PetShop.Service.Products;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +15,9 @@ builder.Services.AddDbContext<CodecampN3Context>(options => options.UseSqlServer
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 #region Repositories
-builder.Services.AddTransient(typeof(IRepository<>), typeof(RepositoryBase<>));
-//builder.Services.AddTransient<IProductRepository, ProductDA>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(RepositoryBase<>));
+builder.Services.AddTransient<IProductRepository, ProductDA>();
+builder.Services.AddTransient<ProductService>();
 //builder.Services.AddTransient<ICategoryRepository, CategoryDA>();
 //builder.Services.AddTransient<ICustomerRepository, CustomerDA>();
 //builder.Services.AddTransient<IOrderRepository, OrderDA>();
@@ -44,6 +47,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Categories}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

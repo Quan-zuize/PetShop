@@ -1,16 +1,15 @@
 ﻿using PetShop.Infrastructure;
+using PetShop.IRepositories;
 using PetShop.Models;
 
 namespace PetShop.DataAccess
 {
-    public interface ICategoryRepository : IRepository<Category>
-    {
-
-    }
     public class CategoryDA : RepositoryBase<Category>, ICategoryRepository
     {
-        public CategoryDA(IDbFactory dbFactory) : base(dbFactory)
-        {
+        public CategoryDA(CodecampN3Context context) : base(context)
+        {      
         }
+
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using PetShop.DataAccess;
 using PetShop.Infrastructure;
+using PetShop.IRepositories;
 using PetShop.Models;
 
 namespace PetShop.Service.Products
@@ -7,11 +8,11 @@ namespace PetShop.Service.Products
     public class ProductService : IProductService
     {
         IProductRepository _productRepos;
-        IUnitOfWork _unitOfWork;
-        public ProductService(ProductDA productRepos, IUnitOfWork unitOfWork)
+        //IUnitOfWork _unitOfWork;
+        public ProductService(IProductRepository productRepos)
         {
             this._productRepos = productRepos;
-            this._unitOfWork = unitOfWork; 
+            //this._unitOfWork = unitOfWork; 
         }
         public void Add(Product product)
         {
@@ -44,7 +45,7 @@ namespace PetShop.Service.Products
 
         public void SaveChanges()
         {
-            _unitOfWork.Commit();
+            //_unitOfWork.Commit();
         }
 
     }
