@@ -27,25 +27,6 @@
 </head>
 <body>
     <header>
-        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container-fluid">
-        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PetShop</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-        <ul class="navbar-nav flex-grow-1">
-        <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </li>
-        </ul>
-        </div>
-        </div>
-        </nav>*@
         <!-- Topbar Start -->
         <div class="container-fluid border-bottom d-none d-lg-block">
             <div class="row gx-0">
@@ -89,10 +70,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
-                    <a href="@Url.Action("Index", "Home")" class="nav-item nav-link">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
-                    <a href="service.html" class="nav-item nav-link">Service</a>
-                    <a href="@Url.Action("Product", "Home")" class="nav-item nav-link">Product</a>
+                    <a href="@Url.Action("Index", "Home")" class="nav-item nav-link @if (@ViewBag.active_index != null){@ViewBag.active_index}">Home</a>
+                    <a href="@Url.Action("About", "Home")" class="nav-item nav-link">About</a>
+                    <a href="@Url.Action("Service", "Home")" class="nav-item nav-link" @if (@ViewBag.active_service != null){@ViewBag.active_service}>Service</a>
+                    <a href="@Url.Action("Product", "Home")" class="nav-item nav-link @if (@ViewBag.active_product != null){@ViewBag.active_product}">Product</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu m-0">
@@ -109,17 +90,13 @@
         </nav>
         <!-- Navbar End -->
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    @*<footer class="border-top footer text-muted">
-    <div class="container">
-    &copy; 2023 - PetShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-    </div>
-    </footer>*@
     <!-- Footer Start -->
     <div class="container-fluid bg-light mt-5 py-5">
         <div class="container pt-5">
@@ -198,7 +175,6 @@
         </div>
     </div>
     <!-- Footer End -->
-
     <!-- Back to Top -->
     <a href="#" class="btn btn-primary py-3 fs-4 back-to-top"><i class="bi bi-arrow-up"></i></a>
 

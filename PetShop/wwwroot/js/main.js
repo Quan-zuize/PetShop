@@ -131,11 +131,5 @@
             '<i class="bi bi-arrow-right"></i>'
         ],
     });
-
-    //Add active class nav bar
-    $(".nav-item").click(function () {
-        $(".nav-item").removeClass("active");
-        $(this).addClass("active");
-    });
 })(jQuery);
 

@@ -15,16 +15,26 @@ namespace PetShop.Controllers
 
         public IActionResult Index()
         {
+            @ViewBag.active_index = "active";
+            
             return View();
         }
 
         public IActionResult Product()
         {
+            @ViewBag.active_product = "active";
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Service()
         {
+
+            @ViewBag.active_service = "active";
+            return View();
+        }
+        public IActionResult About()
+        {
+            @ViewBag.active_about = "active";
             return View();
         }
 
