@@ -35,7 +35,7 @@ namespace PetShop.Controllers
         {
             //var products = await unitOfWork.Products.GetMultiPaged(pageIndex, pageSize);
             //var products = unitOfWork.Products.GetMultiPaging(null, out int total, pageIndex, pageSize, null);
-            var products = ProductService.GetAll();
+            var products = ProductService.GetAll().ToList();
             return View(products);
         }
 

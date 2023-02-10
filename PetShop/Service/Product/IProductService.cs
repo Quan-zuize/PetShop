@@ -9,6 +9,7 @@ namespace PetShop.Service.Products
         void Delete(int id);
         IEnumerable<Product> GetAll();
         //IEnumerable<Product> GetAllPaging(int page, int pageSize, out int totalRow);
+        IEnumerable<Product> GetAllByCategory(int categoryId);
         Product GetById(int id);
         void SaveChanges();
     }
