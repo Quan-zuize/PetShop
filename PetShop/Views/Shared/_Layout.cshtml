@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model PetShop.Controllers.CategoriesController
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,6 +26,79 @@
 
     <!-- Template Stylesheet -->
     <link href="~/css/style.css" rel="stylesheet">
+    <style>
+        ul, li {
+            list-style-type: none;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+            .dropdown a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+        .dropdown-btn {
+            background-color: #fff;
+            color: #444;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .sub-menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .sub-menu-btn {
+            background-color: #fff;
+            color: #444;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .sub-menu-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            left: 100%;
+            top: 0;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .sub-menu:hover .sub-menu-content {
+            display: block;
+        }
+
+        .sub-sub-menu {
+            position: relative;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
     <header>

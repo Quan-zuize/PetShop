@@ -9,17 +9,18 @@ using PetShop.DataAccess;
 using PetShop.Infrastructure;
 using PetShop.IRepositories;
 using PetShop.Models;
+using PetShop.Service.Categories;
 
 namespace PetShop.Controllers
 {
     public class CategoriesController : Controller
     {
         //private readonly CodecampN3Context _context;
-        //private ICategoryRepository categoryRepository;
+        private CategoryService _categoryService;
         private readonly UnitOfWork unitOfWork;
-        public CategoriesController(UnitOfWork unitOfWork)
+        public CategoriesController(CategoryService categoryService)
         {
-            this.unitOfWork = unitOfWork;
+            _categoryService = categoryService;
         }
 
         //public CategoriesController(CodecampN3Context context)
@@ -28,9 +29,9 @@ namespace PetShop.Controllers
         //}
 
         // GET: Categories
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-              return View(unitOfWork.Categories.GetAll());
+            return View(_categoryService.GetAll());
         }
 
         // GET: Categories/Details/5
@@ -157,7 +158,7 @@ namespace PetShop.Controllers
         //    {
         //        _context.Categories.Remove(category);
         //    }
-            
+
         //    await _context.SaveChangesAsync();
         //    return RedirectToAction(nameof(Index));
         //}
