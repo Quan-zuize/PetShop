@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -12,16 +13,16 @@ using PetShop.Service.Products;
 
 namespace PetShop.Controllers
 {
+
     public class ProductsController : Controller
     {
 
         //private readonly CodecampN3Context context;
         //private UnitOfWork unitOfWork = new UnitOfWork();
-        public ProductService ProductService;
-
+        public ProductService _productService;
         public ProductsController(ProductService productService)
         {
-            ProductService = productService;
+            _productService = productService;
         }
 
         //public ProductsController(UnitOfWork unitOfWork)
@@ -31,31 +32,28 @@ namespace PetShop.Controllers
         //}
 
         // GET: Products
-        public async Task<IActionResult> Index(int pageIndex = 0, int pageSize = 3)
+        public IActionResult Index()
         {
             //var products = await unitOfWork.Products.GetMultiPaged(pageIndex, pageSize);
             //var products = unitOfWork.Products.GetMultiPaging(null, out int total, pageIndex, pageSize, null);
-            var products = ProductService.GetAll().ToList();
-            return View(products);
+            
+                return View(_productService.GetAll());
+            
+            
+            
         }
 
-        // GET: Products/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null || _context.Products == null)
-        //    {
-        //        return NotFound();
-        //    }
+        public IActionResult Details(int? id)
+        {
 
-        //    var product = await _context.Products
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (product == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var product = _productService.GetById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
 
-        //    return View(product);
-        //}
+            return View(product);
+        }
 
         //// GET: Products/Create
         //public IActionResult Create()
@@ -162,7 +160,7 @@ namespace PetShop.Controllers
         //    {
         //        _context.Products.Remove(product);
         //    }
-            
+
         //    await _context.SaveChangesAsync();
         //    return RedirectToAction(nameof(Index));
         //}

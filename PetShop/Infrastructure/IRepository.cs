@@ -9,7 +9,7 @@ namespace PetShop.Infrastructure
         void Update(T entity);
         void Delete(T entity);
         void Delete(int id);
-        T GetById(int id);
+        T GetById(int? id);
         IEnumerable<T> GetAll();
         IEnumerable<T> Get(Expression<Func<T, bool>> filter,
         Func<IQueryable<T>, IOrderedQueryable<T>> orderBy,

@@ -7,7 +7,7 @@ namespace PetShop.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
+        private CodecampN3Context db = new CodecampN3Context();
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -16,7 +16,8 @@ namespace PetShop.Controllers
         public IActionResult Index()
         {
             @ViewBag.active_index = "active";
-            
+
+
             return View();
         }
 
@@ -44,4 +45,5 @@ namespace PetShop.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
+
 }
