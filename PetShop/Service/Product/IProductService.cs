@@ -10,7 +10,7 @@ namespace PetShop.Service.Products
         IEnumerable<Product> GetAll();
         //IEnumerable<Product> GetAllPaging(int page, int pageSize, out int totalRow);
         IEnumerable<Product> GetAllByCategory(int categoryId);
-        IEnumerable<Product> GettAllServices();
+        IEnumerable<Product> GetAllServices();
         Product GetById(int? id);
         void SaveChanges();
     }
