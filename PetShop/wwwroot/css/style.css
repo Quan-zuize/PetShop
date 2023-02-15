@@ -456,3 +456,14 @@
 .blog-item a:hover i::after {
     width: 50px;
 }
+
+.service-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.service-header a {
+        color: #333;
+        text-decoration: none;
+}

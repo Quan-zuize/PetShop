@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PetShop.Models;
+using PetShop.Service.Products;
 using System.Diagnostics;
 
 namespace PetShop.Controllers
@@ -7,30 +8,18 @@ namespace PetShop.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public ProductService ProductServices;
+        public HomeController(ILogger<HomeController> logger, ProductService productService)
         {
             _logger = logger;
+            ProductServices = productService;
         }
 
         public IActionResult Index()
         {
             @ViewBag.active_index = "active";
-            
-            return View();
-        }
-
-        public IActionResult Product()
-        {
-            @ViewBag.active_product = "active";
-            return View();
-        }
-
-        public IActionResult Service()
-        {
-
-            @ViewBag.active_service = "active";
-            return View();
+            var getAllServices = ProductServices.GettAllServices();
+            return View(getAllServices);
         }
         public IActionResult About()
         {

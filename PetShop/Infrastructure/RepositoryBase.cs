@@ -84,7 +84,7 @@ namespace PetShop.Infrastructure
                 throw new Exception(ex.Message);
             }
         }
-        public virtual T GetById(int id)
+        public virtual T GetById(int? id)
         {
             try
             {

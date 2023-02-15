@@ -11,10 +11,29 @@ namespace PetShop.Controllers
             Services = services;
         }
 
-        public async Task<IActionResult> Index(int id)
+        public IActionResult Index(int id)
         {
-            var getServiceById = Services.GetById(id); 
+            //var getServiceById = Services.GetById(id); 
+            //return View(getServiceById);
+            @ViewBag.active_service = "active";
             return View();
+        }
+
+        // GET: Products/Delete/5
+        public IActionResult Details(int? id)
+        {
+            if (id == null || Services == null)
+            {
+                return NotFound();
+            }
+
+            var product = Services.GetById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
         }
     }
 }

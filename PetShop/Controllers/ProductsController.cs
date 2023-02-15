@@ -14,9 +14,6 @@ namespace PetShop.Controllers
 {
     public class ProductsController : Controller
     {
-
-        //private readonly CodecampN3Context context;
-        //private UnitOfWork unitOfWork = new UnitOfWork();
         public ProductService ProductService;
 
         public ProductsController(ProductService productService)
@@ -24,17 +21,12 @@ namespace PetShop.Controllers
             ProductService = productService;
         }
 
-        //public ProductsController(UnitOfWork unitOfWork)
-        //{
-        //    this.unitOfWork = unitOfWork;
-        //    ProductService = new ProductService(productDA, unitOfWork);
-        //}
-
         // GET: Products
-        public async Task<IActionResult> Index(int pageIndex = 0, int pageSize = 3)
+        public IActionResult Index(int pageIndex = 0, int pageSize = 3)
         {
             //var products = await unitOfWork.Products.GetMultiPaged(pageIndex, pageSize);
             //var products = unitOfWork.Products.GetMultiPaging(null, out int total, pageIndex, pageSize, null);
+            @ViewBag.active_product = "active";
             var products = ProductService.GetAll().ToList();
             return View(products);
         }
