@@ -27,6 +27,7 @@ builder.Services.AddTransient<ProductService>();
 #endregion
 
 builder.Services.AddControllers();
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -44,9 +45,12 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
+
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();
