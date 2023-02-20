@@ -1,12 +1,11 @@
-﻿using System;
+﻿using PetShop.Infrastructure;
+using System;
 using System.Collections.Generic;
 
 namespace PetShop.Models;
 
-public partial class BannerImage
+public partial class BannerImage : BaseEntity
 {
-    public int BannerId { get; set; }
-
     public string? Link { get; set; }
 
     public string? SubTitle { get; set; }

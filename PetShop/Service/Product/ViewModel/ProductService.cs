@@ -38,7 +38,7 @@ namespace PetShop.Service.Products
             return _productRepos.GetMultiPaging(x => x.Id == categoryId , out totalRow, page, pageSize, new string[] {"CategoryProduct"});
         }
 
-        public IEnumerable<Product> GettAllServices()
+        public IEnumerable<Product> GetAllServices()
         {
             return _productRepos.GetAllServices();
         }

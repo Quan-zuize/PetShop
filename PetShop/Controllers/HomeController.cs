@@ -16,18 +16,8 @@ namespace PetShop.Controllers
         public IActionResult Index()
         {
             @ViewBag.active_index = "active";
-            return View();
-        }
-
-        public IActionResult Product()
-        {
-            @ViewBag.active_product = "active";
-            return View();
-        }
-
-        public IActionResult Service()
-        {
-            @ViewBag.active_service = "active";
+            ViewData["getAllServices"]  = ProductServices.GetAllServices();
+            ViewData["getAllProducts"] = ProductServices.GetAll();
             return View();
         }
         public IActionResult About()

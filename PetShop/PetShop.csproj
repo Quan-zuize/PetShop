@@ -23,6 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Service\Admin\ViewModel\" />
+    <Folder Include="Service\Customer\ViewModel\" />
+    <Folder Include="Service\Order\ViewModel\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\img\about.jpg" />
     <None Include="wwwroot\img\blog-1.jpg" />
     <None Include="wwwroot\img\blog-2.jpg" />

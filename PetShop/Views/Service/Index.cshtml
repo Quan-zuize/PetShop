@@ -1,15 +1,8 @@
-﻿@model PetShop.Models.Product
+﻿@model IEnumerable<PetShop.Models.Product>
 @{
-    ViewData["Title"] = "Service";
+    ViewData["Title"] = "Service Page";
 }
-
-<style>
-    .container {
-        max-width: 1000px;
-        margin: auto;
-        padding: 20px;
-    }    
-</style>
+<!-- Services Start -->
 <div class="container-fluid py-5">
     <div class="container">
         <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
@@ -17,59 +10,170 @@
             <h1 class="display-5 text-uppercase mb-0">Our Excellent Pet Care Services</h1>
         </div>
         <div class="row g-5">
-            <div class="col-md-12">
-                <div class="service-item bg-light d-flex p-4">
-                    <i class="@Html.DisplayFor(model => model.Image) display-1 text-primary me-4"></i>
-                    <div>
-                        <div class="service-header">
-                            <h5 class="text-uppercase mb-3">@Html.DisplayFor(model => model.Name)</h5>
-                            <a href="@Url.Action("Service", "Home")">Back to Services</a>
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6">
+                    <div class="service-item bg-light d-flex p-4">
+                        <i class="@Html.DisplayFor(modelItem => item.Image) display-1 text-primary me-4"></i>
+                        <div>
+                            <h5 class="text-uppercase mb-3">@Html.DisplayFor(modelItem => item.Name)</h5>
+                            <p>@Html.DisplayFor(modelItem => item.Description)</p>
+                            <a class="text-primary text-uppercase" href="@Url.Action("Details", new { id = item.Id })">Read More<i class="bi bi-chevron-right"></i></a>
                         </div>
-                        @Html.DisplayFor(model => model.Description)
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- Services End -->
+<!-- Testimonial Start -->
+<div class="container-fluid bg-testimonial py-5" style="margin: 45px 0;">
+    <div class="container py-5">
+        <div class="row justify-content-end">
+            <div class="col-lg-7">
+                <div class="owl-carousel testimonial-carousel bg-white p-5">
+                    <div class="testimonial-item text-center">
+                        <div class="position-relative mb-4">
+                            <img class="img-fluid mx-auto" src="~/img/testimonial-1.jpg" alt="">
+                            <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white" style="width: 45px; height: 45px;">
+                                <i class="bi bi-chat-square-quote text-primary"></i>
+                            </div>
+                        </div>
+                        <p>Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat. Erat dolor rebum sit ipsum.</p>
+                        <hr class="w-25 mx-auto">
+                        <h5 class="text-uppercase">Client Name</h5>
+                        <span>Profession</span>
+                    </div>
+                    <div class="testimonial-item text-center">
+                        <div class="position-relative mb-4">
+                            <img class="img-fluid mx-auto" src="img/testimonial-2.jpg" alt="">
+                            <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white" style="width: 45px; height: 45px;">
+                                <i class="bi bi-chat-square-quote text-primary"></i>
+                            </div>
+                        </div>
+                        <p>Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat. Erat dolor rebum sit ipsum.</p>
+                        <hr class="w-25 mx-auto">
+                        <h5 class="text-uppercase">Client Name</h5>
+                        <span>Profession</span>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="service-description">
-        @*<p>Our pet sitters will come to your home and take care of your pets while you're away. This includes feeding, walking, and providing plenty of love and attention.</p>
-        <p>Our pet sitting services are available for all types of pets, including dogs, cats, birds, and other small animals. We can customize our services to meet your specific needs, whether you need daily visits or just a few visits per week.</p>*@
-            @Html.DisplayFor(model => model.Specification)
-        </div>
-
-        <!-- Comment Form Start -->
-        <div class="bg-light p-5">
-            <h3 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Leave a comment</h3>
-            <form>
-                <div class="row g-3">
-                    <div class="col-12 col-sm-6">
-                        <input type="text" class="form-control bg-white border-0" placeholder="Your Name" style="height: 55px;">
-                    </div>
-                    <div class="col-12 col-sm-6">
-                        <input type="email" class="form-control bg-white border-0" placeholder="Your Email" style="height: 55px;">
-                    </div>
-                    <div class="col-12">
-                        <input type="text" class="form-control bg-white border-0" placeholder="Website" style="height: 55px;">
-                    </div>
-                    <div class="col-12">
-                        <textarea class="form-control bg-white border-0" rows="5" placeholder="Comment"></textarea>
-                    </div>
-                    <div class="col-12">
-                        <button class="btn btn-primary w-100 py-3" type="submit">Leave Your Comment</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <!-- Comment Form End -->
     </div>
 </div>
-@*<div class="container">
-    <div class="service-header">
-    <h2>Pet Sitting</h2>
-    <a href="index.html">Back to Services</a>
+<!-- Testimonial End -->
+<!-- Pricing Plan Start -->
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
+            <h6 class="text-primary text-uppercase">Pricing Plan</h6>
+            <h1 class="display-5 text-uppercase mb-0">Competitive Pricing For Pet Services</h1>
+        </div>
+        <div class="row g-5">
+            <div class="col-lg-4">
+                <div class="bg-light text-center pt-5 mt-lg-5">
+                    <h2 class="text-uppercase">Basic</h2>
+                    <h6 class="text-body mb-5">The Best Choice</h6>
+                    <div class="text-center bg-primary p-4 mb-2">
+                        <h1 class="display-4 text-white mb-0">
+                            <small class="align-top"
+                                   style="font-size: 22px; line-height: 45px;">$</small>49<small class="align-bottom" style="font-size: 16px; line-height: 40px;">
+                                /
+                                Mo
+                            </small>
+                        </h1>
+                    </div>
+                    <div class="text-center p-4">
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <span>HTML5 & CSS3</span>
+                            <i class="bi bi-check2 fs-4 text-primary"></i>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <span>Bootstrap v5</span>
+                            <i class="bi bi-check2 fs-4 text-primary"></i>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <span>Responsive Layout</span>
+                            <i class="bi bi-x fs-4 text-danger"></i>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <span>Browsers Compatibility</span>
+                            <i class="bi bi-x fs-4 text-danger"></i>
+                        </div>
+                        <a href="" class="btn btn-primary text-uppercase py-2 px-4 my-3">Order Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="bg-light text-center pt-5">
+                    <h2 class="text-uppercase">Standard</h2>
+                    <h6 class="text-body mb-5">The Best Choice</h6>
+                    <div class="text-center bg-dark p-4 mb-2">
+                        <h1 class="display-4 text-white mb-0">
+                            <small class="align-top"
+                                   style="font-size: 22px; line-height: 45px;">$</small>99<small class="align-bottom" style="font-size: 16px; line-height: 40px;">
+                                /
+                                Mo
+                            </small>
+                        </h1>
+                    </div>
+                    <div class="text-center p-4">
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <span>HTML5 & CSS3</span>
+                            <i class="bi bi-check2 fs-4 text-primary"></i>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <span>Bootstrap v5</span>
+                            <i class="bi bi-check2 fs-4 text-primary"></i>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <span>Responsive Layout</span>
+                            <i class="bi bi-check2 fs-4 text-primary"></i>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <span>Browsers Compatibility</span>
+                            <i class="bi bi-x fs-4 text-danger"></i>
+                        </div>
+                        <a href="" class="btn btn-primary text-uppercase py-2 px-4 my-3">Order Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="bg-light text-center pt-5 mt-lg-5">
+                    <h2 class="text-uppercase">Extended</h2>
+                    <h6 class="text-body mb-5">The Best Choice</h6>
+                    <div class="text-center bg-primary p-4 mb-2">
+                        <h1 class="display-4 text-white mb-0">
+                            <small class="align-top"
+                                   style="font-size: 22px; line-height: 45px;">$</small>149<small class="align-bottom" style="font-size: 16px; line-height: 40px;">
+                                /
+                                Mo
+                            </small>
+                        </h1>
+                    </div>
+                    <div class="text-center p-4">
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <span>HTML5 & CSS3</span>
+                            <i class="bi bi-check2 fs-4 text-primary"></i>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <span>Bootstrap v5</span>
+                            <i class="bi bi-check2 fs-4 text-primary"></i>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <span>Responsive Layout</span>
+                            <i class="bi bi-check2 fs-4 text-primary"></i>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <span>Browsers Compatibility</span>
+                            <i class="bi bi-check2 fs-4 text-primary"></i>
+                        </div>
+                        <a href="" class="btn btn-primary text-uppercase py-2 px-4 my-3">Order Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="service-description">
-    <p>Our pet sitters will come to your home and take care of your pets while you're away. This includes feeding, walking, and providing plenty of love and attention.</p>
-    <p>Our pet sitting services are available for all types of pets, including dogs, cats, birds, and other small animals. We can customize our services to meet your specific needs, whether you need daily visits or just a few visits per week.</p>
-    </div>
-    </div>*@
+</div>
+<!-- Pricing Plan End -->

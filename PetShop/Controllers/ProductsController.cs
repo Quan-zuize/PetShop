@@ -14,13 +14,11 @@ namespace PetShop.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly CodecampN3Context _context;
         public ProductService _productService;
 
-        public ProductsController(ProductService productService, CodecampN3Context context)
+        public ProductsController(ProductService productService)
         {
             _productService = productService;
-            _context = context;
         }
 
         // GET: Products
