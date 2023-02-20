@@ -1,4 +1,4 @@
-﻿using PetShop.Infrastructure;
+using PetShop.Infrastructure;
 using System;
 using System.Collections.Generic;
 

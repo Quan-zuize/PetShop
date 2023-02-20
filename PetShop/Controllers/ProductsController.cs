@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -16,13 +15,11 @@ namespace PetShop.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly CodecampN3Context _context;
         public ProductService _productService;
 
-        public ProductsController(ProductService productService, CodecampN3Context context)
+        public ProductsController(ProductService productService)
         {
             _productService = productService;
-            _context = context;
         }
 
         // GET: Products
@@ -35,28 +32,21 @@ namespace PetShop.Controllers
             //return View(await _context.Products.ToListAsync());
         }
 
-        // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            var result = _productService.GetById(id);
-            if (result == null)
-            {
-                return NotFound();
-            }
-            return View(result);
-        }
+        //public IActionResult Details(int? id)
+        //{
 
-        [Route("addcart/{productid:int}", Name = "addcart")]
-        public IActionResult AddToCart([FromRoute] int productid)
-        {
-            //not ok
-            var product = _context.Products.Where(p => p.Id == productid).FirstOrDefault();
+        //    var product = _productService.GetById(id);
+        //    if (product == null)
+        //    {
+        //        return NotFound();
+        //    }
 
 
-            if (product == null)
-            {
-                return NotFound("Cart emty");
-            }
+        //// GET: Products/Create
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
 
             var cart = GetCartItems();
             var cartitem = cart.Find(p => p.product.Id == productid);
