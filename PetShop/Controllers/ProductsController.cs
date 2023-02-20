@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using PetShop.DataAccess;
-using PetShop.Infrastructure;
 using PetShop.Models;
 using PetShop.Service.Products;
+using System.Data.Entity.Core.Common.CommandTrees;
+using Newtonsoft.Json;
 
 namespace PetShop.Controllers
 {
-
     public class ProductsController : Controller
     {
         public ProductService _productService;
@@ -26,11 +25,11 @@ namespace PetShop.Controllers
         // GET: Products
         public IActionResult Index()
         {
-            //var products = await unitOfWork.Products.GetMultiPaged(pageIndex, pageSize);
-            //var products = unitOfWork.Products.GetMultiPaging(null, out int total, pageIndex, pageSize, null);
-            @ViewBag.active_product = "active";
-            var products = _productService.GetAll().ToList();
-            return View(products);
+
+            var results = _productService.GetAll().ToList();
+            ViewBag.Products = results;
+            return View(results);
+            //return View(await _context.Products.ToListAsync());
         }
 
         //public IActionResult Details(int? id)
@@ -42,8 +41,6 @@ namespace PetShop.Controllers
         //        return NotFound();
         //    }
 
-        //    return View(product);
-        //}
 
         //// GET: Products/Create
         //public IActionResult Create()
@@ -51,113 +48,85 @@ namespace PetShop.Controllers
         //    return View();
         //}
 
-        //// POST: Products/Create
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Id,Name,ProductType,Image,Price,OriginalPrice,Description,Specification")] Product product)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(product);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(product);
-        //}
+            var cart = GetCartItems();
+            var cartitem = cart.Find(p => p.product.Id == productid);
+            if (cartitem != null)
+            {
+                cartitem.quantity++;
+            }
+            else
+            {
+                cart.Add(new CartItem() { quantity = 1, product = product });
+            }
 
-        //// GET: Products/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null || _context.Products == null)
-        //    {
-        //        return NotFound();
-        //    }
+            SaveCartSession(cart);
+            return RedirectToAction(nameof(Cart));
+        }
 
-        //    var product = await _context.Products.FindAsync(id);
-        //    if (product == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(product);
-        //}
+        [Route("/removecart/{productid:int}", Name = "removecart")]
+        public IActionResult RemoveCart([FromRoute] int productid)
+        {
+            var cart = GetCartItems();
+            var cartitem = cart.Find(p => p.product.Id == productid);
+            if (cartitem != null)
+            {
+                cart.Remove(cartitem);
+            }
 
-        //// POST: Products/Edit/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ProductType,Image,Price,OriginalPrice,Description,Specification")] Product product)
-        //{
-        //    if (id != product.Id)
-        //    {
-        //        return NotFound();
-        //    }
+            SaveCartSession(cart);
+            return RedirectToAction(nameof(Cart));
+        }
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(product);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!ProductExists(product.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(product);
-        //}
+        [Route("/updatecart", Name = "updatecart")]
+        [HttpPost]
+        public IActionResult UpdateCart([FromForm] int productid, [FromForm] int quantity)
+        {
+            var cart = GetCartItems();
+            var cartitem = cart.Find(p => p.product.Id == productid);
+            if (cartitem != null)
+            {
+                cartitem.quantity = quantity;
+            }
+            SaveCartSession(cart);
+            return Ok();
+        }
 
-        //// GET: Products/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null || _context.Products == null)
-        //    {
-        //        return NotFound();
-        //    }
+        [Route("/cart", Name = "cart")]
+        public IActionResult Cart()
+        {
+            return View(GetCartItems());
+        }
 
-        //    var product = await _context.Products
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (product == null)
-        //    {
-        //        return NotFound();
-        //    }
+        [Route("/checkout")]
+        public IActionResult CheckOut()
+        {
+            return View();
+        }
 
-        //    return View(product);
-        //}
+        public const string CARTKEY = "cart";
 
-        //// POST: Products/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    if (_context.Products == null)
-        //    {
-        //        return Problem("Entity set 'CodecampN3Context.Products'  is null.");
-        //    }
-        //    var product = await _context.Products.FindAsync(id);
-        //    if (product != null)
-        //    {
-        //        _context.Products.Remove(product);
-        //    }
+        List<CartItem> GetCartItems()
+        {
+            var session = HttpContext.Session;
+            string jsoncart = session.GetString(CARTKEY);
+            if (jsoncart != null)
+            {
+                return JsonConvert.DeserializeObject<List<CartItem>>(jsoncart);
+            }
+            return new List<CartItem>();
+        }
 
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
+        void ClearCart()
+        {
+            var session = HttpContext.Session;
+            session.Remove(CARTKEY);
+        }
 
-        //private bool ProductExists(int id)
-        //{
-        //  return _context.Products.Any(e => e.Id == id);
-        //}
+        void SaveCartSession(List<CartItem> ls)
+        {
+            var session = HttpContext.Session;
+            string jsoncart = JsonConvert.SerializeObject(ls);
+            session.SetString(CARTKEY, jsoncart);
+        }
     }
 }

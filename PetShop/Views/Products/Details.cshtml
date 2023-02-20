@@ -1,12 +1,12 @@
-﻿@model PetShop.Models.Product
+@model PetShop.Models.Product
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Product Details</h1>
 
-<div>
+@*<div>
     <h4>Product</h4>
     <hr />
     <dl class="row">
@@ -15,12 +15,6 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductType)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Image)
@@ -57,4 +51,40 @@
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
+</div>*@
+<!-- Blog Start -->
+<div class="container py-5">
+    <div class="row g-5">
+        <div class="col-lg-8">
+            <!-- Blog Detail Start -->
+            <div class="mb-5">
+ @*               @{
+                    <i class="@Html.DisplayFor(model => model.Image) display-1 text-primary me-4"></i>*@
+                    <img class="img-fluid mb-4" src="@Html.DisplayFor(model => model.Image)" alt="">
+                
+                
+                <br/>
+                <h1 class="text-uppercase mb-4"> @Html.DisplayFor(model => model.Name)</h1>
+                <p>
+                    Price:
+                    @Html.DisplayFor(model => model.Price)
+                </p>
+                <p>
+                    Original Price:
+                    @Html.DisplayFor(model => model.OriginalPrice)
+                </p>
+                <p>
+                    Specification:
+                    <br/>
+                    @Html.DisplayFor(model => model.Specification)
+                </p>
+                @Html.DisplayFor(model => model.Description)
+            </div>
+            <a href="" class="btn btn-light py-md-3 px-md-5 me-3">Add to Cart</a>
+            <a href="" class="btn btn-primary text-uppercase py-md-3 px-md-5 my-3">Buy</a>
+            <!-- Blog Detail End -->
+        </div>
+        <!-- Sidebar End -->
+    </div>
 </div>
+<!-- Blog End -->

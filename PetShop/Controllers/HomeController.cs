@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using PetShop.Models;
-using PetShop.Service.Products;
 using System.Diagnostics;
 
 namespace PetShop.Controllers
@@ -8,11 +7,10 @@ namespace PetShop.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        public ProductService ProductServices;
-        public HomeController(ILogger<HomeController> logger, ProductService productService)
+
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            ProductServices = productService;
         }
 
         public IActionResult Index()
@@ -34,5 +32,4 @@ namespace PetShop.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
-
 }

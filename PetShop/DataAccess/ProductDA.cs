@@ -7,7 +7,7 @@ using System.Data;
 
 namespace PetShop.DataAccess
 {
-    public class ProductDA:RepositoryBase<Product>, IProductRepository
+    public class ProductDA : RepositoryBase<Product>, IProductRepository
     {
         public ProductDA(CodecampN3Context context) : base(context)
         {
