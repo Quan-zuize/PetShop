@@ -1,6 +1,9 @@
-﻿namespace PetShop.Bussiness.BannerImage
+﻿using PetShop.Models;
+
+namespace PetShop.Bussiness.BannerImages
 {
-    public interface IBannerImage
+    public interface IBannerImageService
     {
+        IEnumerable<BannerImage> GetAll();
     }
 }

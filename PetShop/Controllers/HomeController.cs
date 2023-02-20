@@ -18,8 +18,9 @@ namespace PetShop.Controllers
         public IActionResult Index()
         {
             @ViewBag.active_index = "active";
-            var getAllServices = ProductServices.GettAllServices();
-            return View(getAllServices);
+            ViewData["getAllServices"]  = ProductServices.GetAllServices();
+            ViewData["getAllProducts"] = ProductServices.GetAll();
+            return View();
         }
         public IActionResult About()
         {

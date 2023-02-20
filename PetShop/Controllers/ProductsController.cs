@@ -33,17 +33,17 @@ namespace PetShop.Controllers
             return View(products);
         }
 
-        public IActionResult Details(int? id)
-        {
+        //public IActionResult Details(int? id)
+        //{
 
-            var product = _productService.GetById(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
+        //    var product = _productService.GetById(id);
+        //    if (product == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(product);
-        }
+        //    return View(product);
+        //}
 
         //// GET: Products/Create
         //public IActionResult Create()

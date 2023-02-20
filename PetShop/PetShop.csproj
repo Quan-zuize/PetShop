@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <Folder Include="Service\Admin\ViewModel\" />
-    <Folder Include="Service\BannerImage\ViewModel\" />
     <Folder Include="Service\Customer\ViewModel\" />
     <Folder Include="Service\Order\ViewModel\" />
   </ItemGroup>
