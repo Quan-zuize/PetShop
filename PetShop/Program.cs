@@ -21,6 +21,18 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(RepositoryBase<>));
 builder.Services.AddTransient<IProductRepository, ProductDA>();
 builder.Services.AddTransient<ProductService>();
+//builder.Services.AddTransient<ICategoryRepository, CategoryDA>();
+//builder.Services.AddTransient<ICustomerRepository, CustomerDA>();
+//builder.Services.AddTransient<IOrderRepository, OrderDA>();
+//builder.Services.AddTransient<ICategoryProductRepository, CategoryProductDA>();
+//builder.Services.AddTransient<ICustomerOrderRepository, CustomerOrderDA>();
+//builder.Services.AddTransient<IOrderDetailRepository, OrderDetailDA>();
+#endregion
+
+#region Repositories
+builder.Services.AddScoped(typeof(IRepository<>), typeof(RepositoryBase<>));
+builder.Services.AddTransient<IProductRepository, ProductDA>();
+builder.Services.AddTransient<ProductService>();
 builder.Services.AddTransient<ICategoryRepository, CategoryDA>();
 builder.Services.AddTransient<CategoryService>();
 builder.Services.AddTransient<ICauHinhRepository, CauHinhDA>();
@@ -35,6 +47,7 @@ builder.Services.AddTransient<BannerImageService>();
 #endregion
 
 builder.Services.AddControllers();
+builder.Services.AddSession();
 
 var app = builder.Build();
 
