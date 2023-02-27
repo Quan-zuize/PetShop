@@ -14,6 +14,10 @@ namespace PetShop.Controllers
         public IActionResult Index()
         {
             @ViewBag.active_service = "active";
+            TempData.Keep("Office");
+            TempData.Keep("EmailContact");
+            TempData.Keep("PhoneNum");
+
             var getAllServices = _services.GetAllServices();
             return View(getAllServices);
         }

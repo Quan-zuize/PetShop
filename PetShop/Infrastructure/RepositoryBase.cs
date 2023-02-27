@@ -16,7 +16,7 @@ namespace PetShop.Infrastructure
         {
             get
             {
-                return context ??= new CodecampN3Context();
+                return context ??= new DbFactory().Init();
             }
         }
 

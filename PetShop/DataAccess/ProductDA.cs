@@ -12,10 +12,10 @@ namespace PetShop.DataAccess
         public ProductDA(CodecampN3Context context) : base(context)
         {
         }
-        SqlConnection sqlConnection = new ConnectToDB().sqlConnection;
+        string conn = new ConnectToDB().ConnectionString;
         public IEnumerable<Product> GetAllByCategory(int categoryId/*, int pageIndex, int pageSize, out int totalRow*/)
         {
-            using (IDbConnection connection = sqlConnection)
+            using (IDbConnection connection = new SqlConnection(conn))
             {
                 var sql = "usp_WEB_GetProductByCategoryId";
                 DynamicParameters dp = new DynamicParameters();
@@ -41,7 +41,7 @@ namespace PetShop.DataAccess
         //}
         public IEnumerable<Product> GetAll()
         {
-            using (IDbConnection connection = sqlConnection)
+            using (IDbConnection connection = new SqlConnection(conn))
             {
                 var sql = "usp_WEB_GetAllProduct";
                 connection.Open();
@@ -53,7 +53,7 @@ namespace PetShop.DataAccess
 
         public IEnumerable<Product> GetAllServices()
         {
-            using (IDbConnection connection = sqlConnection)
+            using (IDbConnection connection = new SqlConnection(conn))
             {
                 var sql = "usp_WEB_GetService";
                 connection.Open();

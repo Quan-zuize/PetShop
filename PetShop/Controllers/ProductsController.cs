@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Common.CommandTrees;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,10 @@ namespace PetShop.Controllers
         // GET: Products
         public IActionResult Index()
         {
+            @ViewBag.active_product = "active";
+            TempData.Keep("Office");
+            TempData.Keep("EmailContact");
+            TempData.Keep("PhoneNum");
 
             var results = _productService.GetAll().ToList();
             ViewBag.Products = results;
@@ -32,21 +37,28 @@ namespace PetShop.Controllers
             //return View(await _context.Products.ToListAsync());
         }
 
-        //public IActionResult Details(int? id)
-        //{
+        // GET: Products/Details/5
+        public IActionResult Details(int? id)
+        {
+            var result = _productService.GetById(id);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return View(result);
+        }
 
-        //    var product = _productService.GetById(id);
-        //    if (product == null)
-        //    {
-        //        return NotFound();
-        //    }
+        [Route("addcart/{productid:int}", Name = "addcart")]
+        public IActionResult AddToCart([FromRoute] int productid)
+        {
+            //not ok
+            var product = _productService.GetById(productid);
 
 
-        //// GET: Products/Create
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
+            if (product == null)
+            {
+                return NotFound("Cart emty");
+            }
 
             var cart = GetCartItems();
             var cartitem = cart.Find(p => p.product.Id == productid);

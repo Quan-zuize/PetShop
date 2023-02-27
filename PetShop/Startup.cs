@@ -13,6 +13,7 @@ namespace PetShop
             });
         }
 
+        [Obsolete]
         public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env) 
         {
             app.UseSession();
