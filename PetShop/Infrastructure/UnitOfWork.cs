@@ -6,28 +6,29 @@ namespace PetShop.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private CodecampN3Context context;
-        private RepositoryBase<Product> productRepository;
-        private RepositoryBase<Category> categoryRepository;
+        private CodecampN3Context context = new CodecampN3Context();
+        //private RepositoryBase<Product> productRepository;
+        //private RepositoryBase<Category> categoryRepository;
 
-        public RepositoryBase<Category> Categories { get
+        public RepositoryBase<Category> Categories {
+            get
             {
-                if (categoryRepository == null)
+                if (Categories == null)
                 {
-                    categoryRepository = new CategoryDA(context);
+                    return new CategoryDA(context);
                 }
-                return categoryRepository;
+                return Categories;
             } 
         }
         public RepositoryBase<Product> Products
         {
             get
             {
-                if (productRepository == null)
+                if (Products == null)
                 {
-                    productRepository = new ProductDA(context);
+                    return new ProductDA(context);
                 }
-                return productRepository;
+                return Products;
             }
 
         }

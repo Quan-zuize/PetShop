@@ -32,6 +32,7 @@ public partial class CodecampN3Context : DbContext
     public virtual DbSet<OrderDetail> OrderDetails { get; set; }
 
     public virtual DbSet<Product> Products { get; set; }
+    public virtual DbSet<CauHinh> CauHinhs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -61,11 +62,11 @@ public partial class CodecampN3Context : DbContext
 
         modelBuilder.Entity<BannerImage>(entity =>
         {
-            entity.HasKey(e => e.BannerId).HasName("PK__Banner_i__10373C34A0B391FB");
+            entity.HasKey(e => e.Id).HasName("PK__Banner_i__10373C34A0B391FB");
 
             entity.ToTable("Banner_image");
 
-            entity.Property(e => e.BannerId).HasColumnName("banner_id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Image)
                 .HasDefaultValueSql("((0))")
                 .HasColumnName("image");
@@ -75,6 +76,12 @@ public partial class CodecampN3Context : DbContext
             entity.Property(e => e.SubTitle)
                 .HasDefaultValueSql("((0))")
                 .HasColumnName("sub_title");
+            entity.Property(e => e.Title)
+                .HasDefaultValueSql("((0))")
+                .HasColumnName("title");
+            entity.Property(e => e.Description)
+                .HasDefaultValueSql("((0))")
+                .HasColumnName("description");
         });
 
         modelBuilder.Entity<Category>(entity =>

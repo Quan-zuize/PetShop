@@ -3,22 +3,19 @@ using PetShop.Infrastructure;
 using PetShop.IRepositories;
 using PetShop.Models;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 namespace PetShop.DataAccess
 {
     public class CategoryDA:RepositoryBase<Category>, ICategoryRepository
     {
-        IConfigurationRoot configuration = new ConfigurationBuilder()
-             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-             .AddJsonFile("appsettings.json")
-             .Build();
         public CategoryDA(CodecampN3Context context) : base(context)
         {
         }
+        string conn = new ConnectToDB().ConnectionString;
         public IEnumerable<Category> GetAll()
         {
-            using (IDbConnection connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection")))
+            using (IDbConnection connection = new SqlConnection(conn))
             {
                 var sql = "usp_WEB_GetCategory";
                 connection.Open();
@@ -29,7 +26,7 @@ namespace PetShop.DataAccess
         }
         public Category GetById(int id)
         {
-            using (IDbConnection connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection")))
+            using (IDbConnection connection = new SqlConnection(conn))
             {
                 var sql = "usp_WEB_Get";
                 DynamicParameters dp = new DynamicParameters();

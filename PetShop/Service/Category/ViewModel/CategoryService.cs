@@ -9,12 +9,10 @@ namespace PetShop.Service.Categories
     public class CategoryService : ICategoryService
     {
         ICategoryRepository _categoryRepos;
-        IUnitOfWork _unitOfWork;
 
         public CategoryService(ICategoryRepository categoryRepos, IUnitOfWork unitOfWork)
         {
             _categoryRepos = categoryRepos;
-            _unitOfWork = unitOfWork;
         }
 
         public void Add(Category category)
@@ -39,7 +37,7 @@ namespace PetShop.Service.Categories
 
         public void SaveChanges()
         {
-            _unitOfWork.Commit();
+            //_unitOfWork.Commit();
         }
 
         public void Update(Category category)

@@ -5,35 +5,38 @@ namespace PetShop.Controllers
 {
     public class ServiceController : Controller
     {
-        public ProductService Services;
+        public ProductService _services;
         public ServiceController(ProductService services)
         {
-            Services = services;
+            _services = services;
         }
 
-        public IActionResult Index(int id)
+        public IActionResult Index()
         {
-            //var getServiceById = Services.GetById(id); 
-            //return View(getServiceById);
             @ViewBag.active_service = "active";
-            return View();
+            TempData.Keep("Office");
+            TempData.Keep("EmailContact");
+            TempData.Keep("PhoneNum");
+
+            var getAllServices = _services.GetAllServices();
+            return View(getAllServices);
         }
 
         // GET: Products/Delete/5
         public IActionResult Details(int? id)
         {
-            if (id == null || Services == null)
+            if (id == null || _services == null)
             {
                 return NotFound();
             }
 
-            var product = Services.GetById(id);
-            if (product == null)
+            var getServiceById = _services.GetById(id);
+            if (getServiceById == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(getServiceById);
         }
     }
 }

@@ -1,16 +1,18 @@
-﻿@model IEnumerable<PetShop.Models.Product>
 @{
     ViewData["Title"] = "Home Page";
+    List<Product> products = (List<Product>)ViewData["getAllProducts"];
+    List<Product> services = (List<Product>)ViewData["getAllServices"];
+    List<BannerImage> bannerImgs = (List<BannerImage>)ViewBag.HomeBanner;
 }
 
 <!-- Hero Start -->
-<div class="container-fluid bg-primary py-5 mb-5 hero-header" style="background-image : src()">
+<div class="container-fluid bg-primary py-5 mb-5 hero-header" style="background-image : url(@bannerImgs[0].Image)">
     <div class="container py-5">
         <div class="row justify-content-start">
             <div class="col-lg-8 text-center text-lg-start">
-                <h1 class="display-1 text-uppercase text-dark mb-lg-4">Pet Shop</h1>
-                <h1 class="text-uppercase text-white mb-lg-4">Make Your Pets Happy</h1>
-                <p class="fs-4 text-white mb-lg-4">Dolore tempor clita lorem rebum kasd eirmod dolore diam eos kasd. Kasd clita ea justo est sed kasd erat clita sea</p>
+                <h1 class="display-1 text-uppercase text-dark mb-lg-4">@bannerImgs[0].Title</h1>
+                <h1 class="text-uppercase text-white mb-lg-4">@bannerImgs[0].SubTitle</h1>
+                <p class="fs-4 text-white mb-lg-4">@bannerImgs[0].Description</p>
                 <div class="d-flex align-items-center justify-content-center justify-content-lg-start pt-5">
                     <a href="" class="btn btn-outline-light border-2 py-md-3 px-md-5 me-5">Read More</a>
                     <button type="button" class="btn-play" data-bs-toggle="modal"
@@ -49,15 +51,15 @@
         <div class="row gx-5">
             <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
                 <div class="position-relative h-100">
-                    <img class="position-absolute w-100 h-100 rounded" src="img/about.jpg" style="object-fit: cover;">
+                    <img class="position-absolute w-100 h-100 rounded" src="@TempData["AboutImg"]" style="object-fit: cover;">
                 </div>
             </div>
             <div class="col-lg-7">
                 <div class="border-start border-5 border-primary ps-5 mb-5">
                     <h6 class="text-primary text-uppercase">About Us</h6>
-                    <h1 class="display-5 text-uppercase mb-0">We Keep Your Pets Happy All Time</h1>
+                    <h1 class="display-5 text-uppercase mb-0">@TempData["AboutTitle"]</h1>
                 </div>
-                <h4 class="text-body mb-4">Diam dolor diam ipsum tempor sit. Clita erat ipsum et lorem stet no labore lorem sit clita duo justo magna dolore</h4>
+                <h4 class="text-body mb-4">@TempData["AboutShortDes"]</h4>
                 <div class="bg-light p-4">
                     <ul class="nav nav-pills justify-content-between mb-3" id="pills-tab" role="tablist">
                         <li class="nav-item w-50" role="presentation">
@@ -77,10 +79,10 @@
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-1" role="tabpanel" aria-labelledby="pills-1-tab">
-                            <p class="mb-0">Tempor erat elitr at rebum at at clita aliquyam consetetur. Diam dolor diam ipsum et, tempor voluptua sit consetetur sit. Aliquyam diam amet diam et eos sadipscing labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor consetetur takimata eirmod, dolores takimata consetetur invidunt magna dolores aliquyam dolores dolore. Amet erat amet et magna</p>
+                            <p class="mb-0">@TempData["AboutMission"]</p>
                         </div>
                         <div class="tab-pane fade" id="pills-2" role="tabpanel" aria-labelledby="pills-2-tab">
-                            <p class="mb-0">Tempor erat elitr at rebum at at clita aliquyam consetetur. Diam dolor diam ipsum et, tempor voluptua sit consetetur sit. Aliquyam diam amet diam et eos sadipscing labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor consetetur takimata eirmod, dolores takimata consetetur invidunt magna dolores aliquyam dolores dolore. Amet erat amet et magna</p>
+                            <p class="mb-0">@TempData["AboutVision"]</p>
                         </div>
                     </div>
                 </div>
@@ -97,19 +99,23 @@
             <h1 class="display-5 text-uppercase mb-0">Our Excellent Pet Care Services</h1>
         </div>
         <div class="row g-5">
-            @foreach (var item in Model)
+            @if (services != null && services.Any())
             {
-                <div class="col-md-6">
-                    <div class="service-item bg-light d-flex p-4">
-                        <i class="@Html.DisplayFor(modelItem => item.Image) display-1 text-primary me-4"></i>
-                        <div>
-                            <h5 class="text-uppercase mb-3">@Html.DisplayFor(modelItem => item.Name)</h5>
-                            <p>@Html.DisplayFor(modelItem => item.Description)</p>
-                            <a class="text-primary text-uppercase" href="">Read More<i class="bi bi-chevron-right"></i></a>
+                @foreach (var item in services)
+                {
+                    <div class="col-md-6">
+                        <div class="service-item bg-light d-flex p-4">
+                            <i class="@Html.DisplayFor(modelItem => item.Image) display-1 text-primary me-4"></i>
+                            <div>
+                                <h5 class="text-uppercase mb-3">@Html.DisplayFor(modelItem => item.Name)</h5>
+                                <p>@Html.DisplayFor(modelItem => item.Description)</p>
+                                @Html.ActionLink("Read More", "Details", new { id = item.Id }, new { @class = "text-primary text-uppercase" })
+                            </div>
                         </div>
                     </div>
-                </div>
-            } 
+                }
+            }
+
         </div>
     </div>
 </div>
@@ -182,15 +188,15 @@
 </div>
 <!-- Products End -->
 <!-- Offer Start -->
-<div class="container-fluid bg-offer my-5 py-5">
+<div class="container-fluid bg-offer my-5 py-5" style="background-image:url(@bannerImgs[1].Image)">
     <div class="container py-5">
         <div class="row gx-5 justify-content-start">
             <div class="col-lg-7">
                 <div class="border-start border-5 border-dark ps-5 mb-5">
-                    <h6 class="text-dark text-uppercase">Special Offer</h6>
-                    <h1 class="display-5 text-uppercase text-white mb-0">Save 50% on all items your first order</h1>
+                    <h6 class="text-dark text-uppercase">@bannerImgs[1].Title</h6>
+                    <h1 class="display-5 text-uppercase text-white mb-0">@bannerImgs[1].SubTitle</h1>
                 </div>
-                <p class="text-white mb-4">Eirmod sed tempor lorem ut dolores sit kasd ipsum. Dolor ea et dolore et at sea ea at dolor justo ipsum duo rebum sea. Eos vero eos vero ea et dolore eirmod et. Dolores diam duo lorem. Elitr ut dolores magna sit. Sea dolore sed et.</p>
+                <p class="text-white mb-4">@bannerImgs[1].Description</p>
                 <a href="" class="btn btn-light py-md-3 px-md-5 me-3">Shop Now</a>
                 <a href="" class="btn btn-outline-light py-md-3 px-md-5">Read More</a>
             </div>

@@ -3,6 +3,9 @@ using PetShop.DataAccess;
 using PetShop.Infrastructure;
 using PetShop.IRepositories;
 using PetShop.Models;
+using PetShop.Service.BannerImage.ViewModel;
+using PetShop.Service.Categories;
+using PetShop.Service.CauHinhs;
 using PetShop.Service.Products;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +21,12 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(RepositoryBase<>));
 builder.Services.AddTransient<IProductRepository, ProductDA>();
 builder.Services.AddTransient<ProductService>();
-//builder.Services.AddTransient<ICategoryRepository, CategoryDA>();
+builder.Services.AddTransient<ICategoryRepository, CategoryDA>();
+builder.Services.AddTransient<CategoryService>();
+builder.Services.AddTransient<ICauHinhRepository, CauHinhDA>();
+builder.Services.AddTransient<CauHinhService>();
+builder.Services.AddTransient<IBannerImageRepository, BannerImageDA>();
+builder.Services.AddTransient<BannerImageService>();
 //builder.Services.AddTransient<ICustomerRepository, CustomerDA>();
 //builder.Services.AddTransient<IOrderRepository, OrderDA>();
 //builder.Services.AddTransient<ICategoryProductRepository, CategoryProductDA>();
@@ -27,6 +35,7 @@ builder.Services.AddTransient<ProductService>();
 #endregion
 
 builder.Services.AddControllers();
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -44,9 +53,12 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
+
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();

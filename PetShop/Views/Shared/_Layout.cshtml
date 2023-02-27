@@ -1,5 +1,3 @@
-﻿@model PetShop.Controllers.CategoriesController
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -110,7 +108,7 @@
                         <i class="bi bi-geo-alt fs-1 text-primary me-3"></i>
                         <div class="text-start">
                             <h6 class="text-uppercase mb-1">Our Office</h6>
-                            <span>123 Street, New York, USA</span>
+                            <span>@TempData["Office"]</span>
                         </div>
                     </div>
                 </div>
@@ -119,7 +117,7 @@
                         <i class="bi bi-envelope-open fs-1 text-primary me-3"></i>
                         <div class="text-start">
                             <h6 class="text-uppercase mb-1">Email Us</h6>
-                            <span>info@example.com</span>
+                            <span>@TempData["EmailContact"]</span>
                         </div>
                     </div>
                 </div>
@@ -128,7 +126,7 @@
                         <i class="bi bi-phone-vibrate fs-1 text-primary me-3"></i>
                         <div class="text-start">
                             <h6 class="text-uppercase mb-1">Call Us</h6>
-                            <span>+012 345 6789</span>
+                            <span>@TempData["PhoneNum"]</span>
                         </div>
                     </div>
                 </div>
@@ -146,8 +144,8 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
                     <a href="@Url.Action("Index", "Home")" class="nav-item nav-link @if (@ViewBag.active_index != null){@ViewBag.active_index}">Home</a>
-                    <a href="@Url.Action("About", "Home")" class="nav-item nav-link">About</a>
-                    <a href="@Url.Action("Index", "Service")" class="nav-item nav-link" @if (@ViewBag.active_service != null){@ViewBag.active_service}>Service</a>
+                    <a href="@Url.Action("About", "Home")" class="nav-item nav-link @if(@ViewBag.active_about != null){@ViewBag.active_about}">About</a>
+                    <a href="@Url.Action("Index", "Service")" class="nav-item nav-link @if (@ViewBag.active_service != null){@ViewBag.active_service}"">Service</a>
                     <a href="@Url.Action("Index", "Products")" class="nav-item nav-link @if (@ViewBag.active_product != null){@ViewBag.active_product}">Product</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>

@@ -1,10 +1,14 @@
-﻿namespace PetShop.DataAccess
+﻿using Microsoft.Data.SqlClient;
+
+namespace PetShop.DataAccess
 {
     public class ConnectToDB
     {
-        public string connectionString = new ConfigurationBuilder()
+        private readonly static IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
             .AddJsonFile("appsettings.json")
-            .Build().GetConnectionString("DefaultConnection").ToString();
+            .Build();
+
+        public string ConnectionString = configuration.GetConnectionString("DefaultConnection");
     }
 }
