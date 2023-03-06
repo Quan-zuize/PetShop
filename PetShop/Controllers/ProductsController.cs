@@ -12,16 +12,20 @@ using PetShop.Service.Products;
 using System.Data.Entity.Core.Common.CommandTrees;
 using Newtonsoft.Json;
 
+
 namespace PetShop.Controllers
 {
     public class ProductsController : Controller
     {
         public ProductService _productService;
+        private readonly CodecampN3Context _context;
 
-        public ProductsController(ProductService productService)
+        public ProductsController(ProductService productService, CodecampN3Context context)
         {
             _productService = productService;
+            _context = context;
         }
+        
 
         // GET: Products
         public IActionResult Index()
@@ -53,7 +57,6 @@ namespace PetShop.Controllers
         {
             //not ok
             var product = _productService.GetById(productid);
-
 
             if (product == null)
             {
@@ -140,5 +143,38 @@ namespace PetShop.Controllers
             string jsoncart = JsonConvert.SerializeObject(ls);
             session.SetString(CARTKEY, jsoncart);
         }
+
+        public double TotalNumber() 
+        {
+            List<CartItem> lCart = HttpContext.Session as List<CartItem>;
+            if(lCart == null) 
+            {
+                return 0;
+            }
+            return lCart.Sum(c => c.quantity);
+        }
+
+        //public ActionResult SubmitOrder()
+        //{
+        //    var cart = GetCartItems();
+        //    if (cart == null)
+        //    {
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //    Order order = new Order();
+        //    order.OrderDate = DateTime.Now;
+        //    order.OrderStatus = "processing";
+            
+        //    List<CartItem> ls = GetCartItems();
+        //    foreach(var item in ls) 
+        //    {
+        //        OrderDetail orderDetail = new OrderDetail();
+        //        orderDetail.OrderId = order.Id;
+        //        orderDetail.ProductId = item.product.Id;
+        //        orderDetail.Description= item.product.Description;
+
+        //    }
+        //    return RedirectToAction("cart");
+        //}
+
     }
-}

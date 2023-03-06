@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using PetShop.Service.Products;
 
 namespace PetShop.Controllers
@@ -40,3 +40,4 @@ namespace PetShop.Controllers
         }
     }
 }
+

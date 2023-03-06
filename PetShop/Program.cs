@@ -16,8 +16,7 @@ builder.Services.AddDbContext<CodecampN3Context>(options => options.UseSqlServer
     builder.Configuration.GetConnectionString("DefaultConnection")
 ));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IDbFactory, DbFactory>();
-builder.Services.AddTransient<ProductDA>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 #region Repositories
 builder.Services.AddScoped(typeof(IRepository<>), typeof(RepositoryBase<>));
