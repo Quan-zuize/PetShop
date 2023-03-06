@@ -1,4 +1,4 @@
-﻿using PetShop.Infrastructure;
+using PetShop.Infrastructure;
 using PetShop.IRepositories;
 using PetShop.Models;
 using Dapper;

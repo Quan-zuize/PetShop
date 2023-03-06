@@ -5,66 +5,20 @@
 }
 
 <h1>Product Details</h1>
-
-@*<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OriginalPrice)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OriginalPrice)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Specification)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Specification)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>*@
 <!-- Blog Start -->
 <div class="container py-5">
     <div class="row g-5">
         <div class="col-lg-8">
             <!-- Blog Detail Start -->
             <div class="mb-5">
- @*               @{
+                 @{
+                    <i class="@html.displayfor(model => model.image) display-1 text-primary me-4"></i>*@
+                <i class="display-1 text-primary me-4"></i>
                     <i class="@Html.DisplayFor(model => model.Image) display-1 text-primary me-4"></i>*@
                     <img class="img-fluid mb-4" src="@Html.DisplayFor(model => model.Image)" alt="">
-                
-                
                 <br/>
                 <h1 class="text-uppercase mb-4"> @Html.DisplayFor(model => model.Name)</h1>
+                <img src="@Html.DisplayFor(model => model.Image)" />
                 <p>
                     Price:
                     @Html.DisplayFor(model => model.Price)
@@ -79,12 +33,37 @@
                     @Html.DisplayFor(model => model.Specification)
                 </p>
                 @Html.DisplayFor(model => model.Description)
+                }
             </div>
-            <a href="" class="btn btn-light py-md-3 px-md-5 me-3">Add to Cart</a>
+            <a class="btn btn-light py-md-3 px-md-5 me-3" asp-route="addcart" asp-route-productid="@Model.Id">Add to Cart</a>
             <a href="" class="btn btn-primary text-uppercase py-md-3 px-md-5 my-3">Buy</a>
             <!-- Blog Detail End -->
         </div>
         <!-- Sidebar End -->
+        <!-- Comment Form Start -->
+        <div class="bg-light p-5">
+            <h3 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Leave a comment</h3>
+            <form>
+                <div class="row g-3">
+                    <div class="col-12 col-sm-6">
+                        <input type="text" class="form-control bg-white border-0" placeholder="Your Name" style="height: 55px;">
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <input type="email" class="form-control bg-white border-0" placeholder="Your Email" style="height: 55px;">
+                    </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control bg-white border-0" placeholder="Website" style="height: 55px;">
+                    </div>
+                    <div class="col-12">
+                        <textarea class="form-control bg-white border-0" rows="5" placeholder="Comment"></textarea>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary w-100 py-3" type="submit">Leave Your Comment</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- Comment Form End -->
     </div>
 </div>
 <!-- Blog End -->
