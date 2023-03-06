@@ -11,7 +11,7 @@ using PetShop.Models;
 using PetShop.Service.Products;
 using System.Data.Entity.Core.Common.CommandTrees;
 using Newtonsoft.Json;
-using PetShop.Sales;
+
 
 namespace PetShop.Controllers
 {
