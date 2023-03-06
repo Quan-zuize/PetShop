@@ -1,5 +1,3 @@
-﻿
-
 namespace PetShop
 {
     public class Startup
@@ -8,14 +6,16 @@ namespace PetShop
         {
             services.AddDistributedMemoryCache();           
             services.AddSession(cfg => {                    
-                cfg.Cookie.Name = "cookie01";             
+                cfg.Cookie.Name = "ck_cart";             
                 cfg.IdleTimeout = new TimeSpan(0, 60, 0);    
             });
         }
 
+        [Obsolete]
         public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env) 
         {
             app.UseSession();
         }
     }
 }
+
