@@ -19,7 +19,7 @@ namespace TestProject1
     public class ProductRepositoryTest
     {
         CodecampN3Context context = new CodecampN3Context();
-        IDbFactory dbFactory = new CodecampN3Context();
+        IDbFactory dbFactory;
         IProductRepository productRepository;
         IUnitOfWork unitOfWork;
         public void Initialize()
