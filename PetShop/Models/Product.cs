@@ -13,7 +13,7 @@ public partial class Product : BaseEntity
 
     public string? Image { get; set; }
 
-    public int? Price { get; set; }
+    public string? Price { get; set; }
 
     public string? OriginalPrice { get; set; }
 
