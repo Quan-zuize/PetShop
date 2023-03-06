@@ -1,4 +1,4 @@
-﻿using PetShop.Infrastructure;
+using PetShop.Infrastructure;
 using System;
 using System.Collections.Generic;
 
@@ -6,6 +6,7 @@ namespace PetShop.Models;
 
 public partial class Order : BaseEntity
 {
+    public int? Id { get; set; }
 
     public DateTime? OrderDate { get; set; }
 
