@@ -12,9 +12,7 @@ namespace PetShop.DataAccess
         public ProductDA(CodecampN3Context context) : base(context)
         {
         }
-        public ProductDA(IDbFactory dbFactory) : base(dbFactory)
-        {
-        }
+
         string conn = new ConnectToDB().ConnectionString;
         public IEnumerable<Product> GetAllByCategory(int categoryId/*, int pageIndex, int pageSize, out int totalRow*/)
         {

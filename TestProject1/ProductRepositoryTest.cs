@@ -18,14 +18,15 @@ namespace TestProject1
     
     public class ProductRepositoryTest
     {
-        IDbFactory dbFactory;
+        CodecampN3Context context = new CodecampN3Context();
+        IDbFactory dbFactory = new CodecampN3Context();
         IProductRepository productRepository;
         IUnitOfWork unitOfWork;
         public void Initialize()
         {
             dbFactory = new DbFactory();
-            productRepository = new ProductDA(dbFactory);
-            unitOfWork = new UnitOfWork(dbFactory);
+            productRepository = new ProductDA(context);
+            unitOfWork = new UnitOfWork(context);
         }
 
         [Fact]
