@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using PetShop.Infrastructure;
 using PetShop.IRepositories;
 using PetShop.Models;
@@ -23,7 +23,7 @@ namespace PetShop.DataAccess
             {
                 using (IDbConnection connection = new SqlConnection(configuration.GetConnectionString("DefaultConnection")))
                 {
-                    var sql = "GetCauHinhByTenCauHinh";
+                    var sql = "usp_WEB_GetCauHinhByTenCauHinh";
                     //Add param
                     DynamicParameters dp = new DynamicParameters();
                     dp.Add("name", name);
@@ -40,3 +40,4 @@ namespace PetShop.DataAccess
         }
     }
 }
+
