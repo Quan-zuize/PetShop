@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -9,21 +11,29 @@ using PetShop.Models;
 using PetShop.Service.Products;
 using System.Data.Entity.Core.Common.CommandTrees;
 using Newtonsoft.Json;
+using PetShop.Sales;
 
 namespace PetShop.Controllers
 {
     public class ProductsController : Controller
     {
         public ProductService _productService;
+        private readonly CodecampN3Context _context;
 
-        public ProductsController(ProductService productService)
+        public ProductsController(ProductService productService, CodecampN3Context context)
         {
             _productService = productService;
+            _context = context;
         }
+        
 
         // GET: Products
         public IActionResult Index()
         {
+            @ViewBag.active_product = "active";
+            TempData.Keep("Office");
+            TempData.Keep("EmailContact");
+            TempData.Keep("PhoneNum");
 
             var results = _productService.GetAll().ToList();
             ViewBag.Products = results;
@@ -32,10 +42,10 @@ namespace PetShop.Controllers
         }
 
         // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             var result = _productService.GetById(id);
-            if(result == null) 
+            if (result == null)
             {
                 return NotFound();
             }
@@ -43,13 +53,12 @@ namespace PetShop.Controllers
         }
 
         [Route("addcart/{productid:int}", Name = "addcart")]
-        public IActionResult AddToCart([FromRoute] int productid) 
+        public IActionResult AddToCart([FromRoute] int productid)
         {
             //not ok
-            var product = _context.Products.Where(p => p.Id == productid).FirstOrDefault();
+            var product = _productService.GetById(productid);
 
-
-            if(product == null) 
+            if (product == null)
             {
                 return NotFound("Cart emty");
             }
@@ -134,6 +143,39 @@ namespace PetShop.Controllers
             string jsoncart = JsonConvert.SerializeObject(ls);
             session.SetString(CARTKEY, jsoncart);
         }
+
+        public double TotalNumber() 
+        {
+            List<CartItem> lCart = HttpContext.Session as List<CartItem>;
+            if(lCart == null) 
+            {
+                return 0;
+            }
+            return lCart.Sum(c => c.quantity);
+        }
+
+        //public ActionResult SubmitOrder()
+        //{
+        //    var cart = GetCartItems();
+        //    if (cart == null)
+        //    {
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //    Order order = new Order();
+        //    order.OrderDate = DateTime.Now;
+        //    order.OrderStatus = "processing";
+            
+        //    List<CartItem> ls = GetCartItems();
+        //    foreach(var item in ls) 
+        //    {
+        //        OrderDetail orderDetail = new OrderDetail();
+        //        orderDetail.OrderId = order.Id;
+        //        orderDetail.ProductId = item.product.Id;
+        //        orderDetail.Description= item.product.Description;
+
+        //    }
+        //    return RedirectToAction("cart");
+        //}
+
     }
 }
-
