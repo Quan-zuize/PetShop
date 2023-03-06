@@ -112,8 +112,9 @@
     }
 }
 
+
 .hero-header {
-    background: url(../img/hero.jpg)  top right no-repeat;
+    background: top right no-repeat;
     background-size: cover;
 }
 
@@ -281,7 +282,7 @@
         }
 
 .bg-offer {
-    background: url(../img/offer.jpg) top right no-repeat;
+    background: top right no-repeat;
     background-size: cover;
 }
 

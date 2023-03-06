@@ -2,7 +2,6 @@
 {
     public class AdminDA
     {
-        private readonly string _connectionString;
 
     }
 }
