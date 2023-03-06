@@ -26,7 +26,7 @@ namespace TestProject1
         {
             dbFactory = new DbFactory();
             productRepository = new ProductDA(context);
-            unitOfWork = new UnitOfWork(context);
+            unitOfWork = new UnitOfWork(dbFactory);
         }
 
         [Fact]
