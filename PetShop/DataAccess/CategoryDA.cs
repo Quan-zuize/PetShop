@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using PetShop.Infrastructure;
 using PetShop.IRepositories;
 using PetShop.Models;
@@ -12,10 +12,10 @@ namespace PetShop.DataAccess
         public CategoryDA(CodecampN3Context context) : base(context)
         {
         }
-        SqlConnection sqlConnection = new ConnectToDB().sqlConnection;
+        string conn = new ConnectToDB().ConnectionString;
         public IEnumerable<Category> GetAll()
         {
-            using (IDbConnection connection = sqlConnection)
+            using (IDbConnection connection = new SqlConnection(conn))
             {
                 var sql = "usp_WEB_GetCategory";
                 connection.Open();
@@ -26,7 +26,7 @@ namespace PetShop.DataAccess
         }
         public Category GetById(int id)
         {
-            using (IDbConnection connection = sqlConnection)
+            using (IDbConnection connection = new SqlConnection(conn))
             {
                 var sql = "usp_WEB_Get";
                 DynamicParameters dp = new DynamicParameters();
