@@ -6,6 +6,7 @@ namespace PetShop.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {
+        private readonly IDbFactory dbFactory;
         private CodecampN3Context context = new CodecampN3Context();
         //private RepositoryBase<Product> productRepository;
         //private RepositoryBase<Category> categoryRepository;
@@ -41,6 +42,11 @@ namespace PetShop.Infrastructure
         //    CategoryProducts = new CategoryProductDA(context);
         //    Products = new ProductDA(context);
         //}
+
+        public UnitOfWork(IDbFactory dbFactory)
+        {
+            this.dbFactory = dbFactory;
+        }
 
         public void Commit()
         {
