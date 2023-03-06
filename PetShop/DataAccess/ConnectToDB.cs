@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 namespace PetShop.DataAccess
 {
@@ -9,6 +9,6 @@ namespace PetShop.DataAccess
             .AddJsonFile("appsettings.json")
             .Build();
 
-        public SqlConnection sqlConnection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
+        public string ConnectionString = configuration.GetConnectionString("DefaultConnection");
     }
 }
