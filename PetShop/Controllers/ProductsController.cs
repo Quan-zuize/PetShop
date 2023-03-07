@@ -25,19 +25,30 @@ namespace PetShop.Controllers
             _productService = productService;
             _context = context;
         }
-        
+
 
         // GET: Products
-        public IActionResult Index()
+        public IActionResult Index(int id)
         {
             @ViewBag.active_product = "active";
             TempData.Keep("Office");
             TempData.Keep("EmailContact");
             TempData.Keep("PhoneNum");
 
-            var results = _productService.GetAll().ToList();
-            ViewBag.Products = results;
-            return View(results);
+            
+            if(id == null)
+            {
+                var results = _productService.GetAll().ToList();
+                ViewBag.Products = results;
+                return View(results);
+            }
+            else
+            {
+                var results = _productService.GetAllByCategory(id).ToList();
+                ViewBag.Products = results;
+                return View(results);
+            }
+            
             //return View(await _context.Products.ToListAsync());
         }
 
@@ -144,10 +155,10 @@ namespace PetShop.Controllers
             session.SetString(CARTKEY, jsoncart);
         }
 
-        public double TotalNumber() 
+        public double TotalNumber()
         {
             List<CartItem> lCart = HttpContext.Session as List<CartItem>;
-            if(lCart == null) 
+            if (lCart == null)
             {
                 return 0;
             }
@@ -164,7 +175,7 @@ namespace PetShop.Controllers
         //    Order order = new Order();
         //    order.OrderDate = DateTime.Now;
         //    order.OrderStatus = "processing";
-            
+
         //    List<CartItem> ls = GetCartItems();
         //    foreach(var item in ls) 
         //    {
@@ -178,3 +189,4 @@ namespace PetShop.Controllers
         //}
 
     }
+}

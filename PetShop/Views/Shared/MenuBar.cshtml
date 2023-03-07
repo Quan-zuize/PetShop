@@ -1,4 +1,6 @@
-﻿<nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0">
+﻿@using PetShop.DataAccess
+
+<nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0">
     <a href="index.html" class="navbar-brand ms-lg-5">
         <h1 class="m-0 text-uppercase text-dark"><i class="bi bi-shop fs-1 text-primary me-3"></i>Pet Shop</h1>
     </a>
@@ -22,10 +24,15 @@
                    }>Product</a>
                 <ul class="dropdown-content">
                     <li class="sub-menu">
-                        @*@foreach (var parentCategory in Model.)
+                        @{
+                            CodecampN3Context context = new CodecampN3Context();
+                            CategoryDA categories = new CategoryDA(context);
+                            var categoryList = categories.GetAll();
+                        }
+                        @foreach (var category in categoryList)
                         {
-                        @Html.ActionLink(parentCategory.Name,"Index","Product", new {id = parentCategory.Id},new {@class = "sub-menu-btn"})
-                        }*@
+                        @Html.ActionLink(category.Name,"Index","Products", new {id = category.Id},new {@class = "sub-menu-btn"})
+                        }
                     </li>
                 </ul>
             </div>
