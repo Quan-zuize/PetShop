@@ -11,7 +11,7 @@ using PetShop.Models;
 using PetShop.Service.Products;
 using System.Data.Entity.Core.Common.CommandTrees;
 using Newtonsoft.Json;
-
+using PetShop.Sales;
 
 namespace PetShop.Controllers
 {
@@ -112,11 +112,11 @@ namespace PetShop.Controllers
             return View(GetCartItems());
         }
 
-        [Route("/checkout")]
-        public IActionResult CheckOut()
-        {
-            return View();
-        }
+        //[Route("/checkout")]
+        //public IActionResult CheckOut()
+        //{
+        //    return View();
+        //}
 
         public const string CARTKEY = "cart";
 
@@ -164,7 +164,7 @@ namespace PetShop.Controllers
         //    Order order = new Order();
         //    order.OrderDate = DateTime.Now;
         //    order.OrderStatus = "processing";
-            
+
         //    List<CartItem> ls = GetCartItems();
         //    foreach(var item in ls) 
         //    {
@@ -176,6 +176,32 @@ namespace PetShop.Controllers
         //    }
         //    return RedirectToAction("cart");
         //}
+        [HttpGet]
+        [Route("Checkout", Name = "Checkout")]
+        public ActionResult Checkout()
+        {
+            return View(GetCartItems());
+        }
+
+        [HttpPost]
+        public ActionResult Checkout(string Name, string Adress, string Region, string Email, string PhoneNumber, string DateOrder)
+        {
+            var order = new S_Order();
+            order.Name = Name;
+            order.Adress = Adress;
+            order.Region = Region;
+            order.Email = Email;
+            order.PhoneNumber = PhoneNumber;
+            order.DateOrder = DateOrder;
+            return Redirect("Order_Submitted");
+
+        }
+
+        [Route("Order_Submitted", Name = "Order_Submitted")]
+        public ActionResult Order_Submitted()
+        {
+            return View();
+        }
 
     }
 }

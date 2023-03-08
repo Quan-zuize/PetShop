@@ -1,4 +1,4 @@
-@model List<PetShop.Models.CartItem>
+﻿@model List<PetShop.Models.CartItem>
 
 
 <h2>Cart</h2>
@@ -46,7 +46,7 @@
         </tr>
     </table>
 
-    <a asp-controller="Product" asp-action="Checkout" class="btn btn-success">Submit order</a>
+    <a asp-route="Checkout" class="btn btn-success">Submit order</a>
 
     @section Scripts {
     <script>
