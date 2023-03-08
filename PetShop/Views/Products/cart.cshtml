@@ -1,7 +1,9 @@
-﻿@model List<PetShop.Models.CartItem>
-
-
+@model List<PetShop.Models.CartItem>
+@{
+    ViewData["Title"] = "Cart";
+}
 <h2>Cart</h2>
+
 
 @if (Model.Count > 0)
 {
