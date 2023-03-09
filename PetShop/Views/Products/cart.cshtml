@@ -1,9 +1,7 @@
-@model List<PetShop.Models.CartItem>
-@{
-    ViewData["Title"] = "Cart";
-}
-<h2>Cart</h2>
+﻿@model List<PetShop.Models.CartItem>
 
+
+<h2>Cart</h2>
 
 @if (Model.Count > 0)
 {
@@ -48,7 +46,7 @@
         </tr>
     </table>
 
-    <a asp-controller="Product" asp-action="Checkout" class="btn btn-success">Submit order</a>
+    <a asp-route="Checkout" class="btn btn-success">Submit order</a>
 
     @section Scripts {
     <script>
