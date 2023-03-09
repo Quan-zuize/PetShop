@@ -12,11 +12,6 @@
             <!-- Blog Detail Start -->
             <div class="mb-5">
                  @{
-                    <i class="@Html.DisplayFor(model => model.Image) display-1 text-primary me-4"></i>
-                <i class="display-1 text-primary me-4"></i>
-                    <i class="@Html.DisplayFor(model => model.Image) display-1 text-primary me-4"></i>
-                    <img class="img-fluid mb-4" src="@Html.DisplayFor(model => model.Image)" alt="">
-                <br/>
                 <h1 class="text-uppercase mb-4"> @Html.DisplayFor(model => model.Name)</h1>
                 <img src="@Html.DisplayFor(model => model.Image)" />
                 <p>
@@ -34,6 +29,8 @@
                 </p>
                 @Html.DisplayFor(model => model.Description)
                 }
+                </p>
+                @Html.DisplayFor(model => model.Description)
             </div>
             <a class="btn btn-light py-md-3 px-md-5 me-3" asp-route="addcart" asp-route-productid="@Model.Id">Add to Cart</a>
             <a href="" class="btn btn-primary text-uppercase py-md-3 px-md-5 my-3">Buy</a>
