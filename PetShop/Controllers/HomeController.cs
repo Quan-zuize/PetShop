@@ -14,11 +14,11 @@ namespace PetShop.Controllers
         public ProductService _productService;
         public CauHinhService _cauHinhService;
         public BannerImageService _bannerImageService;
-        public HomeController(ILogger<HomeController> logger, ProductService productService, CauHinhService cauHinhService, BannerImageService bannerImageService )
+        public HomeController(ILogger<HomeController> logger, ProductService productService, CauHinhService cauHinhService, BannerImageService bannerImageService)
         {
             _logger = logger;
             _productService = productService;
-            _cauHinhService= cauHinhService;
+            _cauHinhService = cauHinhService;
             _bannerImageService = bannerImageService;
         }
 
@@ -27,16 +27,16 @@ namespace PetShop.Controllers
             @ViewBag.active_index = "active";
             ViewData["getAllServices"] = _productService.GetAllServices();
             ViewData["getAllProducts"] = _productService.GetAll();
-            
+
             ViewBag.Logo = _cauHinhService.GetCauHinhByTenCauHinh("Logo").GiaTriCauHinh;
             ViewBag.Brand = _cauHinhService.GetCauHinhByTenCauHinh("Brand").GiaTriCauHinh;
 
-            TempData["AboutTitle"]= _cauHinhService.GetCauHinhByTenCauHinh("AboutTitle").GiaTriCauHinh;
+            TempData["AboutTitle"] = _cauHinhService.GetCauHinhByTenCauHinh("AboutTitle").GiaTriCauHinh;
             TempData["AboutShortDes"] = _cauHinhService.GetCauHinhByTenCauHinh("AboutShortDescription").GiaTriCauHinh;
             TempData["AboutImg"] = _cauHinhService.GetCauHinhByTenCauHinh("AboutImg").GiaTriCauHinh;
             TempData["AboutMission"] = _cauHinhService.GetCauHinhByTenCauHinh("AboutMission").GiaTriCauHinh;
             TempData["AboutVision"] = _cauHinhService.GetCauHinhByTenCauHinh("AboutVision").GiaTriCauHinh;
-            
+
 
             TempData["Office"] = _cauHinhService.GetCauHinhByTenCauHinh("Office").GiaTriCauHinh;
             TempData["EmailContact"] = _cauHinhService.GetCauHinhByTenCauHinh("EmailContact").GiaTriCauHinh;
@@ -69,3 +69,4 @@ namespace PetShop.Controllers
     }
 
 }
+

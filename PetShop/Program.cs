@@ -16,6 +16,7 @@ builder.Services.AddDbContext<CodecampN3Context>(options => options.UseSqlServer
     builder.Configuration.GetConnectionString("DefaultConnection")
 ));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IDbFactory, DbFactory>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 #region Repositories
@@ -28,6 +29,7 @@ builder.Services.AddTransient<ICauHinhRepository, CauHinhDA>();
 builder.Services.AddTransient<CauHinhService>();
 builder.Services.AddTransient<IBannerImageRepository, BannerImageDA>();
 builder.Services.AddTransient<BannerImageService>();
+
 //builder.Services.AddTransient<ICustomerRepository, CustomerDA>();
 //builder.Services.AddTransient<IOrderRepository, OrderDA>();
 //builder.Services.AddTransient<ICategoryProductRepository, CategoryProductDA>();

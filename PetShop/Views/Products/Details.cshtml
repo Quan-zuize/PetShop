@@ -11,11 +11,7 @@
         <div class="col-lg-8">
             <!-- Blog Detail Start -->
             <div class="mb-5">
- @*               @{
-                    <i class="@html.displayfor(model => model.image) display-1 text-primary me-4"></i>*@
-                <i class="display-1 text-primary me-4"></i>
-
-
+                  @{
                 <h1 class="text-uppercase mb-4"> @Html.DisplayFor(model => model.Name)</h1>
                 <img src="@Html.DisplayFor(model => model.Image)" />
                 <p>
@@ -30,6 +26,9 @@
                     Specification:
                     <br/>
                     @Html.DisplayFor(model => model.Specification)
+                </p>
+                @Html.DisplayFor(model => model.Description)
+                }
                 </p>
                 @Html.DisplayFor(model => model.Description)
             </div>

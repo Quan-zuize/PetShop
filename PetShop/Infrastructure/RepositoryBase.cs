@@ -12,6 +12,8 @@ namespace PetShop.Infrastructure
         protected CodecampN3Context context;
         protected Microsoft.EntityFrameworkCore.DbSet<T> dbSet;
 
+        protected IDbFactory DbFactory { get; private set; }
+
         protected CodecampN3Context DbContext
         {
             get
@@ -25,7 +27,11 @@ namespace PetShop.Infrastructure
             this.context = context;
             dbSet = DbContext.Set<T>();
         }
-
+        public RepositoryBase(IDbFactory dbFactory)
+        {
+            DbFactory = dbFactory;
+            dbSet = DbContext.Set<T>();
+        }
         #region Implemetation
         public virtual void Add(T entity)
         {
