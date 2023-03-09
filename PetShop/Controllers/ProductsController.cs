@@ -11,18 +11,20 @@ using PetShop.Models;
 using PetShop.Service.Products;
 using System.Data.Entity.Core.Common.CommandTrees;
 using Newtonsoft.Json;
-
+using PetShop.Service.Categories;
 
 namespace PetShop.Controllers
 {
     public class ProductsController : Controller
     {
         public ProductService _productService;
+        public CategoryService _categoryService;
         private readonly CodecampN3Context _context;
 
-        public ProductsController(ProductService productService, CodecampN3Context context)
+        public ProductsController(ProductService productService, CategoryService categoryService, CodecampN3Context context)
         {
             _productService = productService;
+            _categoryService = categoryService;
             _context = context;
         }
 
@@ -36,15 +38,17 @@ namespace PetShop.Controllers
             TempData.Keep("PhoneNum");
 
             
-            if(id == null)
+            if(id == 0)
             {
                 var results = _productService.GetAll().ToList();
+                ViewBag.Category = "Our Products";
                 ViewBag.Products = results;
                 return View(results);
             }
             else
             {
                 var results = _productService.GetAllByCategory(id).ToList();
+                ViewBag.Category = _categoryService.GetById(id).Name;
                 ViewBag.Products = results;
                 return View(results);
             }
