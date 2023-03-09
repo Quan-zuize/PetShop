@@ -35,8 +35,10 @@ namespace PetShop.Controllers
             TempData.Keep("EmailContact");
             TempData.Keep("PhoneNum");
 
-            
-            if(id == null)
+
+
+
+            if (id == null)
             {
                 var results = _productService.GetAll().ToList();
                 ViewBag.Products = results;

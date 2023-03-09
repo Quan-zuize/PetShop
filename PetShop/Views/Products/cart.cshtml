@@ -21,7 +21,7 @@
         </tr>
         @foreach (var cartitem in Model)
         {
-            int price = int.Parse(cartitem.product.Price);
+            int price = Int32.Parse(cartitem.product.Price);
             var thanhtien = cartitem.quantity * price;
             total += thanhtien;
 

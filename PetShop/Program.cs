@@ -18,6 +18,11 @@ builder.Services.AddDbContext<CodecampN3Context>(options => options.UseSqlServer
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IDbFactory, DbFactory>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(cfg => {
+    cfg.Cookie.Name = "ck_cart";
+    cfg.IdleTimeout = new TimeSpan(0, 60, 0);
+});
 
 #region Repositories
 builder.Services.AddScoped(typeof(IRepository<>), typeof(RepositoryBase<>));
@@ -49,6 +54,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+app.UseSession();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
