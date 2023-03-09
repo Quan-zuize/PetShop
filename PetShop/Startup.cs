@@ -8,7 +8,7 @@ namespace PetShop
         {
             services.AddDistributedMemoryCache();           
             services.AddSession(cfg => {                    
-                cfg.Cookie.Name = "cookie01";             
+                cfg.Cookie.Name = "ck_cart";             
                 cfg.IdleTimeout = new TimeSpan(0, 60, 0);    
             });
         }
