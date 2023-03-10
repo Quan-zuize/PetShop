@@ -10,12 +10,6 @@ public partial class OrderDetail : BaseEntity
 
     public int? ProductId { get; set; }
 
-    public string? Description { get; set; }
-
-    public string? Status { get; set; }
-
-    public string? Remark { get; set; }
-
     public string? Total { get; set; }
 
     public int? Quantity { get; set; }
