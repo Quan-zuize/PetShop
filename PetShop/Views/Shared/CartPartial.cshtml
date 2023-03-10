@@ -9,7 +9,8 @@
     if (jsoncart != null)
     {
         var cart = JsonConvert.DeserializeObject<List<CartItem>>(jsoncart);
-        <div class="nav-item"><a asp-route="cart">Cart(@cart.Count)</a></div>
-
+        <div class="nav-item nav-link"><a asp-route="cart">Cart(@cart.Count)</a></div>
+    }else{
+        <div class="nav-item nav-link"><a asp-route="cart">Cart(0)</a></div>
     }
 }

@@ -6,8 +6,6 @@ namespace PetShop.Models;
 
 public partial class Order : BaseEntity
 {
-    public int? Id { get; set; }
-
     public DateTime? OrderDate { get; set; }
 
     public string? OrderStatus { get; set; }
@@ -16,5 +14,10 @@ public partial class Order : BaseEntity
 
     public decimal? Total { get; set; }
 
-    public DateTime? DateAdded { get; set; }
+    public int? Customer_id { get; set; }   
+    public string? Fullname { get; set;}
+    public string? Address { get; set; }
+    public string? Telephone { get; set; }
+    public string? Comment { get;set; }
+
 }

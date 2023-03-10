@@ -7,8 +7,6 @@
 <div class="colorlib-loader"></div>
 
 <div id="page">
-
-
     <div class="breadcrumbs">
         <div class="container">
             <div class="row">
@@ -18,14 +16,14 @@
             </div>
         </div>
     </div>
-
-
     <div class="colorlib-product">
         <div class="container">
-           
             <div class="row">
                 <div class="col-lg-8">
                     <form method="post" class="colorlib-form">
+                        @Html.AntiForgeryToken()
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <h2>Billing Details</h2>
                         <div class="row">
 
@@ -46,17 +44,10 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="stateprovince">Region</label>
-                                    <input type="text" id="fname" class="form-control" placeholder="Your region">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="lname">Date Order</label>
-                                    <input type="text" id="zippostalcode" class="form-control" placeholder="Date order">
+                                    <label for="Comment">Comment</label>
+                                    <textarea id="comment" class="form-control" rows="4" placeholder="Enter your comment"></textarea>
                                 </div>
                             </div>
 
@@ -69,13 +60,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="Phone">Phone Number</label>
-                                    <input type="text" id="zippostalcode" class="form-control" placeholder="Your phone number">
+                                    <input type="text" id="phone" class="form-control" placeholder="Your phone number">
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
-               
+
 
                 <div class="col-lg-4">
                     <div class="row">
@@ -85,7 +76,7 @@
                             int stt = 1;
                             <div class="col-md-12">
                                 <div class="cart-detail">
-                                    <h2>cart total</h2>
+                                    <h2>Cart Detail</h2>
                                     <ul>
                                         @foreach (var cartitem in Model)
                                         {
@@ -151,8 +142,3 @@
         </div>
     </div>
 </div>
-
-<div class="gototop js-top">
-    <a href="#" class="js-gotop"><i class="ion-ios-arrow-up"></i></a>
-</div>
-

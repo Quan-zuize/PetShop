@@ -170,10 +170,6 @@ public partial class CodecampN3Context : DbContext
             entity.ToTable("Order");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.DateAdded)
-                .HasDefaultValueSql("((0))")
-                .HasColumnType("datetime")
-                .HasColumnName("date_added");
             entity.Property(e => e.DeliveryDate)
                 .HasDefaultValueSql("((0))")
                 .HasColumnType("datetime")
@@ -189,6 +185,21 @@ public partial class CodecampN3Context : DbContext
                 .HasDefaultValueSql("((0))")
                 .HasColumnType("decimal(15, 4)")
                 .HasColumnName("total");
+            entity.Property(e => e.Customer_id)
+                .HasDefaultValueSql("((0))")
+                .HasColumnName("customer_id");
+            entity.Property(e => e.Fullname)
+                .HasDefaultValueSql("((0))")
+                .HasColumnName("fullname");
+            entity.Property(e => e.Address)
+                .HasDefaultValueSql("((0))")
+                .HasColumnName("address");
+            entity.Property(e => e.Telephone)
+                .HasDefaultValueSql("((0))")
+                .HasColumnName("telephone");
+            entity.Property(e => e.Comment)
+                .HasDefaultValueSql("((0))")
+                .HasColumnName("comment");
         });
 
         modelBuilder.Entity<OrderDetail>(entity =>
@@ -198,9 +209,6 @@ public partial class CodecampN3Context : DbContext
             entity.ToTable("OrderDetail");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Description)
-                .HasDefaultValueSql("((0))")
-                .HasColumnName("description");
             entity.Property(e => e.OrderId)
                 .HasDefaultValueSql("((0))")
                 .HasColumnName("orderId");
@@ -210,12 +218,6 @@ public partial class CodecampN3Context : DbContext
             entity.Property(e => e.Quantity)
                 .HasDefaultValueSql("((0))")
                 .HasColumnName("quantity");
-            entity.Property(e => e.Remark)
-                .HasDefaultValueSql("((0))")
-                .HasColumnName("remark");
-            entity.Property(e => e.Status)
-                .HasDefaultValueSql("((0))")
-                .HasColumnName("status");
             entity.Property(e => e.Total)
                 .HasDefaultValueSql("((0))")
                 .HasColumnName("total");

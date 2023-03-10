@@ -1,5 +1,7 @@
 ﻿@model List<PetShop.Models.CartItem>
-
+@{
+    ViewBag.Title = "Cart";
+}
 
 <h2>Cart</h2>
 
@@ -74,5 +76,6 @@
 }
 else
 {
-    <p class="alert alert-danger">Cart emty</p>
+    <p class="alert alert-danger">Cart empty</p>
 }
+
