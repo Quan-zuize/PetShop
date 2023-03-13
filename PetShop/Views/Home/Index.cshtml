@@ -109,7 +109,7 @@
                             <div>
                                 <h5 class="text-uppercase mb-3">@Html.DisplayFor(modelItem => item.Name)</h5>
                                 <p>@Html.DisplayFor(modelItem => item.Description)</p>
-                                @Html.ActionLink("Read More", "Details", new { id = item.Id }, new { @class = "text-primary text-uppercase" })
+                                @Html.ActionLink("See more", "Details","Service", new { id = item.Id }, new { @class = "text-primary text-uppercase" })
                             </div>
                         </div>
                     </div>
