@@ -10,7 +10,7 @@ namespace PetShop.Controllers
         {
             _services = services;
         }
-
+        [Route("Service")]
         public IActionResult Index()
         {
             @ViewBag.active_service = "active";
@@ -23,6 +23,7 @@ namespace PetShop.Controllers
         }
 
         // GET: Products/Delete/5
+        [Route("ServiceDetail")]
         public IActionResult Details(int? id)
         {
             if (id == null || _services == null)

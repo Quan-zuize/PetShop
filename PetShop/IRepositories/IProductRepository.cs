@@ -7,5 +7,6 @@ namespace PetShop.IRepositories
     {
         IEnumerable<Product> GetAllByCategory(int categoryId/*, int pageIndex, int pageSize, out int totalRow*/);
         IEnumerable<Product> GetAllServices();
+        IEnumerable<Product> SearchProduct(string productName);
     }
 }
