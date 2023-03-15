@@ -53,6 +53,11 @@ namespace PetShop.Service.Products
             return _productRepos.GetAllByCategory(categoryId);
         }
 
+        public IEnumerable<Product> SearchProduct(string productName)
+        {
+            return _productRepos.SearchProduct(productName);
+        }
+
         public void SaveChanges()
         {
             //_unitOfWork.Commit();

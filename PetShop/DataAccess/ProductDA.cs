@@ -63,5 +63,19 @@ namespace PetShop.DataAccess
                 return result;
             }
         }
+
+        public IEnumerable<Product> SearchProduct(string productName)
+        {
+            using (IDbConnection connection = new SqlConnection(conn))
+            {
+                var sql = "usp_WEB_SearchProductByName";
+                DynamicParameters dp = new DynamicParameters();
+                dp.Add("inputName", productName);
+                connection.Open();
+                var result = connection.Query<Product>(sql, dp, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                connection.Close();
+                return result;
+            }
+        }
     }
 }

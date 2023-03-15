@@ -14,7 +14,7 @@ namespace PetShop.Controllers
         private readonly CodecampN3Context _context;
         public BannerImageService _bannerImageService;
 
-        public ProductsController(ProductService productService,CategoryService category, CodecampN3Context context,BannerImageService bannerImageService)
+        public ProductsController(ProductService productService, CategoryService category, CodecampN3Context context, BannerImageService bannerImageService)
         {
             _productService = productService;
             _categoryService = category;
@@ -25,7 +25,8 @@ namespace PetShop.Controllers
         public const string CARTKEY = "cart";
 
         // GET: Products
-        public IActionResult Index(int id)
+        [Route("Product")]
+        public IActionResult Index(string name, int id)
         {
             @ViewBag.active_product = "active";
             TempData.Keep("Office");
@@ -34,28 +35,33 @@ namespace PetShop.Controllers
 
             ViewBag.SpecialOffer = _bannerImageService.GetAll().ElementAt(1);
 
+            var results = _productService.GetAll().ToList();
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                id = 0;
+                results = _productService.SearchProduct(name).ToList();
+                ViewBag.Categories = "Our Products";
+                ViewBag.Found = "Found " + results.Count + " product";
+            }
 
             if (id == 0)
             {
-                var results = _productService.GetAll().ToList();
-                ViewBag.Category = "Our Products";
                 ViewBag.Products = results;
                 ViewBag.Categories = "Our Products";
-                return View(results);
             }
             else
             {
-                var results = _productService.GetAllByCategory(id).ToList();
-                ViewBag.Category = _categoryService.GetById(id).Name;
+                results = _productService.GetAllByCategory(id).ToList();
                 ViewBag.Products = results;
                 ViewBag.Categories = _categoryService.GetById(id).Name;
-                return View(results);
             }
-            
+            return View(results);
             //return View(await _context.Products.ToListAsync());
         }
 
         // GET: Products/Details/5
+        [Route("ProductDetail")]
         public IActionResult Details(int? id)
         {
             var result = _productService.GetById(id);
