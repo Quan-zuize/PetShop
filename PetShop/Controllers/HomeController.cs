@@ -4,6 +4,8 @@ using PetShop.Service.BannerImage.ViewModel;
 using PetShop.Service.CauHinhs;
 using PetShop.Service.Products;
 using System.Diagnostics;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace PetShop.Controllers
 {
@@ -41,6 +43,10 @@ namespace PetShop.Controllers
             TempData["Office"] = _cauHinhService.GetCauHinhByTenCauHinh("Office").GiaTriCauHinh;
             TempData["EmailContact"] = _cauHinhService.GetCauHinhByTenCauHinh("EmailContact").GiaTriCauHinh;
             TempData["PhoneNum"] = _cauHinhService.GetCauHinhByTenCauHinh("PhoneNum").GiaTriCauHinh;
+
+            ViewData["First_plan"] = (JObject)JsonConvert.DeserializeObject(_cauHinhService.GetCauHinhByTenCauHinh("First_plan").GiaTriCauHinh);
+            ViewData["Second_plan"] = (JObject)JsonConvert.DeserializeObject(_cauHinhService.GetCauHinhByTenCauHinh("Second_plan").GiaTriCauHinh);
+            ViewData["Third_plan"] = (JObject)JsonConvert.DeserializeObject(_cauHinhService.GetCauHinhByTenCauHinh("Third_plan").GiaTriCauHinh);
             TempData.Keep();
             ViewBag.HomeBanner = _bannerImageService.GetAll();
             return View();
@@ -57,6 +63,7 @@ namespace PetShop.Controllers
             TempData.Keep("EmailContact");
             TempData.Keep("PhoneNum");
 
+            ViewBag.SpecialOffer = _bannerImageService.GetAll().ElementAt(1);
             @ViewBag.active_about = "active";
             return View();
         }

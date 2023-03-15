@@ -3,6 +3,10 @@
     List<Product> products = (List<Product>)ViewData["getAllProducts"];
     List<Product> services = (List<Product>)ViewData["getAllServices"];
     List<BannerImage> bannerImgs = (List<BannerImage>)ViewBag.HomeBanner;
+
+    Newtonsoft.Json.Linq.JObject first_plan = (Newtonsoft.Json.Linq.JObject)ViewData["First_plan"];
+    Newtonsoft.Json.Linq.JObject second_plan = (Newtonsoft.Json.Linq.JObject)ViewData["Second_plan"];
+    Newtonsoft.Json.Linq.JObject third_plan = (Newtonsoft.Json.Linq.JObject)ViewData["Third_plan"];
 }
 
 <!-- Hero Start -->
@@ -19,7 +23,7 @@
                             data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
                         <span></span>
                     </button>
-                    <h5 class="font-weight-normal text-white m-0 ms-4 d-none d-sm-block">Play Video</h5>
+                    <h5 class="font-weight-normal text-white m-0 ms-4 d-none d-sm-block">Play Video </h5>
                 </div>
             </div>
         </div>
@@ -214,102 +218,111 @@
         <div class="row g-5">
             <div class="col-lg-4">
                 <div class="bg-light text-center pt-5 mt-lg-5">
-                    <h2 class="text-uppercase">Basic</h2>
+                    <h2 class="text-uppercase">@first_plan.First.First.ToString()</h2>
                     <h6 class="text-body mb-5">The Best Choice</h6>
                     <div class="text-center bg-primary p-4 mb-2">
                         <h1 class="display-4 text-white mb-0">
                             <small class="align-top"
-                                   style="font-size: 22px; line-height: 45px;">$</small>49<small class="align-bottom" style="font-size: 16px; line-height: 40px;">
+                                   style="font-size: 22px; line-height: 45px;">$</small>@first_plan.GetValue("price").ToString()<small class="align-bottom" style="font-size: 16px; line-height: 40px;">
                                 /
                                 Mo
                             </small>
                         </h1>
                     </div>
                     <div class="text-center p-4">
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                            <span>HTML5 & CSS3</span>
-                            <i class="bi bi-check2 fs-4 text-primary"></i>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                            <span>Bootstrap v5</span>
-                            <i class="bi bi-check2 fs-4 text-primary"></i>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                            <span>Responsive Layout</span>
-                            <i class="bi bi-x fs-4 text-danger"></i>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                            <span>Browsers Compatibility</span>
-                            <i class="bi bi-x fs-4 text-danger"></i>
-                        </div>
+                        @{
+                            var propertyFirstList = (Newtonsoft.Json.Linq.JObject)@first_plan.Last.First;
+                            foreach (var property in propertyFirstList)
+                            {
+                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                    <span>@property.Key</span>
+                                    @{
+                                        if (property.Value.ToString() == "yes")
+                                        {
+                                            <i class="bi bi-check2 fs-4 text-primary"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="bi bi-x fs-4 text-danger"></i>
+                                        }
+                                    }
+                                </div>
+                            }
+                        }
                         <a href="" class="btn btn-primary text-uppercase py-2 px-4 my-3">Order Now</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="bg-light text-center pt-5">
-                    <h2 class="text-uppercase">Standard</h2>
+                    <h2 class="text-uppercase">@second_plan.First.First.ToString()</h2>
                     <h6 class="text-body mb-5">The Best Choice</h6>
                     <div class="text-center bg-dark p-4 mb-2">
                         <h1 class="display-4 text-white mb-0">
                             <small class="align-top"
-                                   style="font-size: 22px; line-height: 45px;">$</small>99<small class="align-bottom" style="font-size: 16px; line-height: 40px;">
+                                   style="font-size: 22px; line-height: 45px;">$</small>@second_plan.GetValue("price").ToString()<small class="align-bottom" style="font-size: 16px; line-height: 40px;">
                                 /
                                 Mo
                             </small>
                         </h1>
                     </div>
                     <div class="text-center p-4">
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                            <span>HTML5 & CSS3</span>
-                            <i class="bi bi-check2 fs-4 text-primary"></i>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                            <span>Bootstrap v5</span>
-                            <i class="bi bi-check2 fs-4 text-primary"></i>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                            <span>Responsive Layout</span>
-                            <i class="bi bi-check2 fs-4 text-primary"></i>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                            <span>Browsers Compatibility</span>
-                            <i class="bi bi-x fs-4 text-danger"></i>
-                        </div>
+                        @{
+                            var propertySecondList = (Newtonsoft.Json.Linq.JObject)@second_plan.Last.First;
+                            foreach (var property in propertySecondList)
+                            {
+                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                    <span>@property.Key</span>
+                                    @{
+                                        if (property.Value.ToString() == "yes")
+                                        {
+                                            <i class="bi bi-check2 fs-4 text-primary"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="bi bi-x fs-4 text-danger"></i>
+                                        }
+                                    }
+                                </div>
+                            }
+                        }
                         <a href="" class="btn btn-primary text-uppercase py-2 px-4 my-3">Order Now</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="bg-light text-center pt-5 mt-lg-5">
-                    <h2 class="text-uppercase">Extended</h2>
+                    <h2 class="text-uppercase">@third_plan.First.First.ToString()</h2>
                     <h6 class="text-body mb-5">The Best Choice</h6>
                     <div class="text-center bg-primary p-4 mb-2">
                         <h1 class="display-4 text-white mb-0">
                             <small class="align-top"
-                                   style="font-size: 22px; line-height: 45px;">$</small>149<small class="align-bottom" style="font-size: 16px; line-height: 40px;">
+                                   style="font-size: 22px; line-height: 45px;">$</small>@third_plan.GetValue("price").ToString()<small class="align-bottom" style="font-size: 16px; line-height: 40px;">
                                 /
                                 Mo
                             </small>
                         </h1>
                     </div>
                     <div class="text-center p-4">
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                            <span>HTML5 & CSS3</span>
-                            <i class="bi bi-check2 fs-4 text-primary"></i>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                            <span>Bootstrap v5</span>
-                            <i class="bi bi-check2 fs-4 text-primary"></i>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                            <span>Responsive Layout</span>
-                            <i class="bi bi-check2 fs-4 text-primary"></i>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                            <span>Browsers Compatibility</span>
-                            <i class="bi bi-check2 fs-4 text-primary"></i>
-                        </div>
+                        @{
+                            var propertyThirdList = (Newtonsoft.Json.Linq.JObject)@third_plan.Last.First;
+                            foreach (var property in propertyThirdList)
+                            {
+                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                    <span>@property.Key</span>
+                                    @{
+                                        if (property.Value.ToString() == "yes")
+                                        {
+                                            <i class="bi bi-check2 fs-4 text-primary"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="bi bi-x fs-4 text-danger"></i>
+                                        }
+                                    }
+                                </div>
+                            }
+                        }
                         <a href="" class="btn btn-primary text-uppercase py-2 px-4 my-3">Order Now</a>
                     </div>
                 </div>

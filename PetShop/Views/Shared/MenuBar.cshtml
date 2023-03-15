@@ -1,5 +1,37 @@
 ﻿@using PetShop.DataAccess
 
+<style>
+    ul, li {
+        list-style-type: none;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: white;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-content a {
+            color: black;
+            text-decoration: none;
+            display: block;
+        }
+
+            .dropdown-content a:hover {
+                background-color: white;
+            }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+        background-color: white;
+    }
+</style>
 <!-- Topbar Start -->
 <div class="container-fluid border-bottom d-none d-lg-block">
     <div class="row gx-0">

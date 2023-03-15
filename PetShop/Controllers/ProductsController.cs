@@ -11,14 +11,12 @@ namespace PetShop.Controllers
     {
         public ProductService _productService;
         public CategoryService _categoryService;
-        private readonly CodecampN3Context _context;
         public BannerImageService _bannerImageService;
 
-        public ProductsController(ProductService productService,CategoryService category, CodecampN3Context context,BannerImageService bannerImageService)
+        public ProductsController(ProductService productService,CategoryService category,BannerImageService bannerImageService)
         {
             _productService = productService;
             _categoryService = category;
-            _context = context;
             _bannerImageService = bannerImageService;
         }
 
@@ -34,11 +32,9 @@ namespace PetShop.Controllers
 
             ViewBag.SpecialOffer = _bannerImageService.GetAll().ElementAt(1);
 
-
             if (id == 0)
             {
                 var results = _productService.GetAll().ToList();
-                ViewBag.Category = "Our Products";
                 ViewBag.Products = results;
                 ViewBag.Categories = "Our Products";
                 return View(results);
@@ -46,7 +42,6 @@ namespace PetShop.Controllers
             else
             {
                 var results = _productService.GetAllByCategory(id).ToList();
-                ViewBag.Category = _categoryService.GetById(id).Name;
                 ViewBag.Products = results;
                 ViewBag.Categories = _categoryService.GetById(id).Name;
                 return View(results);
