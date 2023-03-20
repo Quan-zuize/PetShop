@@ -23,8 +23,9 @@
             {
                 <div class="pb-5">
                     <div class="product-item position-relative bg-light d-flex flex-column text-center">
-                        <img src="@Html.DisplayFor(modelItem => item.Image)">
-                        
+                        @{var img_src = "localhost:7087" + @Html.DisplayFor(modelItem => item.Image);
+                            <img src="@img_src">
+                        }
                         <h6 class="text-uppercase">@Html.DisplayFor(modelItem => item.Name)</h6>
                         <h5 class="text-primary mb-0">$@Html.DisplayFor(modelItem => item.Price)</h5>
                         <div class="btn-action d-flex justify-content-center">
@@ -40,7 +41,7 @@
 </div>
 <!-- Products End -->
 <!-- Offer Start -->
-<div class="container-fluid bg-offer my-5 py-5" style="background-image:url(@bannerImage.Image)>
+<div class="container-fluid bg-offer my-5 py-5" style="background-image:url("localhost:7087@bannerImage.Image")>
     <div class="container py-5">
         <div class="row gx-5 justify-content-start">
             <div class="col-lg-7">
