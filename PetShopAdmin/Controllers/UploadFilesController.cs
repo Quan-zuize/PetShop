@@ -27,7 +27,7 @@ namespace PetShopAdmin.Controllers
                     string _FileName = Path.GetFileName(file.FileName);
                     _FileName = unixTime + _FileName;
 
-                    string path = Path.Combine(this.Environment.WebRootPath, "/img");
+                    string path = Path.Combine(wwwPath, "img");
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
@@ -37,7 +37,7 @@ namespace PetShopAdmin.Controllers
                     {
                         file.CopyTo(stream);
                     }
-                    var return_path = Path.Combine("/img", _FileName);
+                    var return_path = Path.Combine("img", _FileName);
                     return Content(return_path);
                 }
                 throw new Exception();

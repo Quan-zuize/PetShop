@@ -7,10 +7,13 @@
     Newtonsoft.Json.Linq.JObject first_plan = (Newtonsoft.Json.Linq.JObject)ViewData["First_plan"];
     Newtonsoft.Json.Linq.JObject second_plan = (Newtonsoft.Json.Linq.JObject)ViewData["Second_plan"];
     Newtonsoft.Json.Linq.JObject third_plan = (Newtonsoft.Json.Linq.JObject)ViewData["Third_plan"];
+
+    var img_src_start = "localhost:7087" + @bannerImgs[0].Image;
+    var img_src_offer = "localhost:7087" + @bannerImgs[1].Image;
 }
 
 <!-- Hero Start -->
-<div class="container-fluid bg-primary py-5 mb-5 hero-header" style="background-image : url(@bannerImgs[0].Image)">
+<div class="container-fluid bg-primary py-5 mb-5 hero-header" style="background-image : url(@img_src_start)">
     <div class="container py-5">
         <div class="row justify-content-start">
             <div class="col-lg-8 text-center text-lg-start">
@@ -192,7 +195,7 @@
 </div>
 <!-- Products End -->
 <!-- Offer Start -->
-<div class="container-fluid bg-offer my-5 py-5" style="background-image:url(@bannerImgs[1].Image)">
+<div class="container-fluid bg-offer my-5 py-5" style="background-image:url(@img_src_offer)">
     <div class="container py-5">
         <div class="row gx-5 justify-content-start">
             <div class="col-lg-7">

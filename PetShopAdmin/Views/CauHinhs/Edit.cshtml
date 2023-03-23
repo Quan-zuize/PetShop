@@ -32,11 +32,11 @@
                         <div class="col-md-10">
                             @if (@Model.GiaTriCauHinh.StartsWith("img/"))
                             {
-                                <img src="~/@Model.GiaTriCauHinh" class="preview-picture" style="width:128px; height:100px" />
-                                <input type="file" class="upload-single-input form-control" name="GiaTriCauHinh" id="GiaTriCauHinh" />
+                                <img src="~/@Model.GiaTriCauHinh" class="preview-picture" style="width:480px; height:300px" id="GiaTriCauHinh"/>
+                                <input type="file" class="upload-single-input form-control" name="GiaTriCauHinh"  />
                             }
                             else
-                            {
+                                {
                                 <textarea name="ckGiaTriCauHinh">@Model.GiaTriCauHinh</textarea>
                             }
                             @Html.ValidationMessageFor(model => model.GiaTriCauHinh, "", new { @class = "text-danger" })
@@ -63,6 +63,7 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script src="~/js/core.js"></script>
+    <script src="~/js/uploadfile.js"></script>
     <script src="~/js/cauhinh.js"></script>
-    <script src="~/js/uploadfile.js"></script>   
+     
 }

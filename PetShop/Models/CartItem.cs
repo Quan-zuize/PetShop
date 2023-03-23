@@ -8,6 +8,6 @@ namespace PetShop.Models
     {
         public int quantity { set; get; }
 
-        public Product product { set; get; }
+        public Product? product { set; get; }
     }
 }

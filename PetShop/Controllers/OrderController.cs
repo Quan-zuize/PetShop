@@ -146,15 +146,16 @@ namespace PetShop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Checkout(string Name, string Adress, string Region, string Email, string PhoneNumber, string DateOrder)
+        public ActionResult Checkout(string Name, string Adress, string Comment, string Email)
         {
-            var order = new S_Order();
-            order.Name = Name;
-            order.Adress = Adress;
-            order.Region = Region;
-            order.Email = Email;
-            order.PhoneNumber = PhoneNumber;
-            order.DateOrder = DateOrder;
+            
+            //var order = new S_Order();
+            //order.Name = Name;
+            //order.Adress = Adress;
+            //order.Region = Region;
+            //order.Email = Email;
+            //order.PhoneNumber = PhoneNumber;
+            //order.DateOrder = DateOrder;
             return Redirect("Order_Submitted");
 
         }
