@@ -4,13 +4,20 @@
     },
     RegisterEvent: function () {
         $('.upload-single-input').off('change').on('change', function () {
-            var url = $('.upload-single-input')[0].files[0]
-            R.UploadFile.ShowImageAfterUpload($(this), url)
+            var input = $(this)[0]
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
 
-            ClickButtonSubmit();
+                reader.onload = function (e) {
+                    $('.preview-picture').attr('src', e.target.result).width(480).height(300)
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
         })
     },
     DoUpload: function (dt, element) {
+        var Id = $('#Id').val();
+        var tenCauHinh = $('#TenCauHinh').val();
         $.ajax({
             method: 'post',
             url: '/UploadFiles/UploadSingleFile',
@@ -18,22 +25,17 @@
             contentType: false,
             processData: false,
             success: function (response) {
-                //var url = response.replace('\\', '/')
-                //R.UploadFile.ShowImageAfterUpload(element, url);
+                var url = response.replace('\\', '/')
+                let params = {
+                        Id: Id,
+                        TenCauHinh: tenCauHinh,
+                        GiaTriCauhinh: url,
+                }
+                R.CauHinh.EditCauHinh(params);
             },
             error: function (err) {
                 console.log(err)
             }
-        })
-    },
-    ShowImageAfterUpload: function (element, url) {
-        $(element).parent().find('.preview-picture').attr('src', url)
-    },
-    ClickButtonSubmit: function() {
-        $('.upload-single-btn').off('click').on('click', function () {
-            var dt = new FormData();
-            dt.append('file', $('.upload-single-input')[0].files[0]);
-            R.UploadFile.DoUpload(dt, $('.upload-single-input'));
         })
     }
 }

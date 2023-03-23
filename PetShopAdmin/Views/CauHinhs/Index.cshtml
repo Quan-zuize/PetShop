@@ -36,7 +36,7 @@
                             <td>
                                 @if (@item.GiaTriCauHinh.StartsWith("img/"))
                                 {
-                                    <img src="@item.GiaTriCauHinh" style="width:128px; height:100px" />
+                                    <img src="@item.GiaTriCauHinh" style="width:140px; height:100px" />
                                 }
                                 else
                                 {
@@ -46,8 +46,8 @@
                             <td>
                                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
 
-                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                            </td>
+@*                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+*@                            </td>
                         </tr>
                     }
                 </tbody>
