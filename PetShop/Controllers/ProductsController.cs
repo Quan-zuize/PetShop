@@ -30,6 +30,7 @@ namespace PetShop.Controllers
             TempData.Keep("Office");
             TempData.Keep("EmailContact");
             TempData.Keep("PhoneNum");
+            TempData.Keep("Brand");
 
             ViewBag.SpecialOffer = _bannerImageService.GetAll().ElementAt(1);
 

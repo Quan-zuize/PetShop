@@ -7,14 +7,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PetShop.Models;
 using PetShopAdmin.Data;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PetShopAdmin.Controllers
 {
-    public class ProductsController : Controller
+    public class ProductsAdminController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsAdminController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -22,18 +25,18 @@ namespace PetShopAdmin.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Products.ToListAsync());
+              return View(await _context.Product.ToListAsync());
         }
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Products == null)
+            if (id == null || _context.Product == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var product = await _context.Product
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -54,10 +57,20 @@ namespace PetShopAdmin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,ProductType,Image,Price,OriginalPrice,Description,Specification,Id")] Product product)
+        public async Task<IActionResult> Create([Bind("Name,ProductType,Image,Price,OriginalPrice,Description,Specification,Id")] Product product, IFormFile imageFile)
         {
             if (ModelState.IsValid)
             {
+                if (imageFile != null && imageFile.Length > 0)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        await imageFile.CopyToAsync(ms);
+                        var imageBytes = ms.ToArray();
+                        product.Image = Convert.ToBase64String(imageBytes);
+                    }
+                }
+                product.ProductType = "Product";
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -68,12 +81,12 @@ namespace PetShopAdmin.Controllers
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Products == null)
+            if (id == null || _context.Product == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Product.FindAsync(id);
             if (product == null)
             {
                 return NotFound();
@@ -86,7 +99,7 @@ namespace PetShopAdmin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,ProductType,Image,Price,OriginalPrice,Description,Specification,Id")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Name,ProductType,Image,Price,OriginalPrice,Description,Specification,Id")] Product product, IFormFile imageFile)
         {
             if (id != product.Id)
             {
@@ -97,6 +110,15 @@ namespace PetShopAdmin.Controllers
             {
                 try
                 {
+                    if (imageFile != null && imageFile.Length > 0)
+                    {
+                        using (var ms = new MemoryStream())
+                        {
+                            await imageFile.CopyToAsync(ms);
+                            var imageBytes = ms.ToArray();
+                            product.Image = Convert.ToBase64String(imageBytes);
+                        }
+                    }
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
@@ -119,12 +141,12 @@ namespace PetShopAdmin.Controllers
         // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Products == null)
+            if (id == null || _context.Product == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var product = await _context.Product
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -139,14 +161,14 @@ namespace PetShopAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Products == null)
+            if (_context.Product == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.Products'  is null.");
             }
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Product.FindAsync(id);
             if (product != null)
             {
-                _context.Products.Remove(product);
+                _context.Product.Remove(product);
             }
             
             await _context.SaveChangesAsync();
@@ -155,7 +177,7 @@ namespace PetShopAdmin.Controllers
 
         private bool ProductExists(int id)
         {
-          return _context.Products.Any(e => e.Id == id);
+          return _context.Product.Any(e => e.Id == id);
         }
     }
 }

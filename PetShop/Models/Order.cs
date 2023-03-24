@@ -10,8 +10,6 @@ public partial class Order : BaseEntity
 
     public string? OrderStatus { get; set; }
 
-    public DateTime? DeliveryDate { get; set; }
-
     public decimal? Total { get; set; }
 
     public int? Customer_id { get; set; }   
@@ -19,5 +17,7 @@ public partial class Order : BaseEntity
     public string? Address { get; set; }
     public string? Telephone { get; set; }
     public string? Comment { get;set; }
+
+    public virtual ICollection<OrderDetail> OrderDetails { get; set; }
 
 }

@@ -20,7 +20,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    <form method="post" class="colorlib-form">
+                    <form asp-action="Checkout" method="post" class="colorlib-form">
                         @Html.AntiForgeryToken()
                         <hr />
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -31,7 +31,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="fname">Name</label>
-                                    <input  type="text" id="fname" name="Name" class="form-control" placeholder="Your Name">
+                                    <input type="text" id="fname" name="Name" class="form-control" placeholder="Your Name">
                                 </div>
                             </div>
 
@@ -40,27 +40,28 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="fname">Adress</label>
-                                    <input type="text" id="address" class="form-control" placeholder="Your adress">
+                                    <input type="text" id="address" name="Address" class="form-control" placeholder="Your adress">
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="Comment">Comment</label>
-                                    <textarea id="comment" class="form-control" rows="4" placeholder="Enter your comment"></textarea>
+                                    <textarea id="comment" class="form-control" name="Comment" rows="4" placeholder="Enter your comment"></textarea>
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="text" id="email" class="form-control" placeholder="Your email">
-                                </div>
-                            </div>
+                          
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="Phone">Phone Number</label>
-                                    <input type="text" id="phone" class="form-control" placeholder="Your phone number">
+                                    <input type="number" id="phone" name="PhoneNumber" class="form-control" placeholder="Your phone number">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 text-center" style="padding-top:16px;">
+									<input class="btn btn-primary" type="submit" value="Place an order"></input>
                                 </div>
                             </div>
                         </div>
@@ -132,13 +133,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <p><a href="Order_Submitted" class="btn btn-primary">Place an order</a></p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+                      
