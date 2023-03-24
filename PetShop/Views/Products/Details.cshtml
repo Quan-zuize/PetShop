@@ -13,7 +13,7 @@
             <div class="mb-5">
                  @{
                 <h1 class="text-uppercase mb-4"> @Html.DisplayFor(model => model.Name)</h1>
-                <img src="@Html.DisplayFor(model => model.Image)" />
+                    <img src = "data:image;base64,@(Model.Image)">
                 <p>
                     Price:
                     @Html.DisplayFor(model => model.Price)
@@ -33,7 +33,7 @@
                 @Html.DisplayFor(model => model.Description)
             </div>
             <a class="btn btn-light py-md-3 px-md-5 me-3" asp-route="addcart" asp-route-productid="@Model.Id">Add to Cart</a>
-            <a href="" class="btn btn-primary text-uppercase py-md-3 px-md-5 my-3">Buy</a>
+        @*    <a href="" class="btn btn-primary text-uppercase py-md-3 px-md-5 my-3">Buy</a>*@
             <!-- Blog Detail End -->
         </div>
         <!-- Sidebar End -->

@@ -31,7 +31,7 @@ namespace PetShop.Controllers
             ViewData["getAllProducts"] = _productService.GetAll();
 
             ViewBag.Logo = _cauHinhService.GetCauHinhByTenCauHinh("Logo").GiaTriCauHinh;
-            ViewBag.Brand = _cauHinhService.GetCauHinhByTenCauHinh("Brand").GiaTriCauHinh;
+            TempData["Brand"] = _cauHinhService.GetCauHinhByTenCauHinh("Brand").GiaTriCauHinh;
 
             TempData["AboutTitle"] = _cauHinhService.GetCauHinhByTenCauHinh("AboutTitle").GiaTriCauHinh;
             TempData["AboutShortDes"] = _cauHinhService.GetCauHinhByTenCauHinh("AboutShortDescription").GiaTriCauHinh;

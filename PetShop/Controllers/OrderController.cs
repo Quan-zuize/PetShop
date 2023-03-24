@@ -2,15 +2,18 @@
 using Newtonsoft.Json;
 using PetShop.Models;
 using PetShop.Service.Products;
+using System.Net;
 
 namespace PetShop.Controllers
 {
     public class OrderController : Controller
     {
         public ProductService _productService;
-        public OrderController(ProductService productService)
+        private readonly CodecampN3Context _context;
+        public OrderController(ProductService productService, CodecampN3Context context)
         {
             _productService = productService;
+            _context = context;
         }
 
         [Route("addcart/{productid:int}", Name = "addcart")]
@@ -144,20 +147,38 @@ namespace PetShop.Controllers
             return View(GetCartItems());
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Checkout(string Name, string Adress, string Comment, string Email)
-        {
-            
-            //var order = new S_Order();
-            //order.Name = Name;
-            //order.Adress = Adress;
-            //order.Region = Region;
-            //order.Email = Email;
-            //order.PhoneNumber = PhoneNumber;
-            //order.DateOrder = DateOrder;
-            return Redirect("Order_Submitted");
 
+        [HttpPost]
+        [Route("Checkout", Name = "Checkout")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Checkout(string Name, string Address, string PhoneNumber, string Comment)
+        {
+            var cartItems = GetCartItems();
+            var orderDetails = cartItems.Select(cartItem => new OrderDetail
+            {
+                ProductId = cartItem.product.Id,
+                Quantity = cartItem.quantity,
+                Total = (Int32.Parse(cartItem.product.Price) * cartItem.quantity).ToString()
+            }).ToList();
+            var total = orderDetails.Sum(orderDetail => Int32.Parse(orderDetail.Total));
+            var order = new Order()
+            {
+                OrderDate = DateTime.Now,
+                OrderStatus = "Pending",
+                Total = total,
+                Fullname = Name,
+                Address = Address,
+                Telephone = PhoneNumber,
+                Comment = Comment,
+                OrderDetails = orderDetails
+                
+            };
+            //_productService.Orders.Add(order);
+            //dbContext.SaveChanges();
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+
+            return RedirectToAction("Order_Submitted", "Order");
         }
 
         [Route("Order_Submitted", Name = "Order_Submitted")]
