@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\img\**" />
+    <Content Remove="wwwroot\img\**" />
+    <EmbeddedResource Remove="wwwroot\img\**" />
+    <None Remove="wwwroot\img\**" />
+  </ItemGroup>
+
+  <ItemGroup>
 
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
@@ -27,27 +34,6 @@
     <Folder Include="Service\Admin\ViewModel\" />
     <Folder Include="Service\Customer\ViewModel\" />
     <Folder Include="Service\Order\ViewModel\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\img\about.jpg" />
-    <None Include="wwwroot\img\blog-1.jpg" />
-    <None Include="wwwroot\img\blog-2.jpg" />
-    <None Include="wwwroot\img\hero.jpg" />
-    <None Include="wwwroot\img\offer.jpg" />
-    <None Include="wwwroot\img\product-1.png" />
-    <None Include="wwwroot\img\product-2.png" />
-    <None Include="wwwroot\img\product-3.png" />
-    <None Include="wwwroot\img\product-4.png" />
-    <None Include="wwwroot\img\team-1.jpg" />
-    <None Include="wwwroot\img\team-2.jpg" />
-    <None Include="wwwroot\img\team-3.jpg" />
-    <None Include="wwwroot\img\team-4.jpg" />
-    <None Include="wwwroot\img\team-5.jpg" />
-    <None Include="wwwroot\img\testimonial-1.jpg" />
-    <None Include="wwwroot\img\testimonial-2.jpg" />
-    <None Include="wwwroot\img\testimonial.jpg" />
-    <None Include="wwwroot\img\user.jpg" />
   </ItemGroup>
 
 </Project>
