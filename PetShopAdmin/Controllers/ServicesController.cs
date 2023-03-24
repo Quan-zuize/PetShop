@@ -13,19 +13,11 @@ using System.Threading.Tasks;
 
 namespace PetShopAdmin.Controllers
 {
-<<<<<<<< HEAD:PetShopAdmin/Controllers/ProductsAdminController.cs
-    public class ProductsAdminController : Controller
-    {
-        private readonly ApplicationDbContext _context;
-
-        public ProductsAdminController(ApplicationDbContext context)
-========
     public class ServicesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
         public ServicesController(ApplicationDbContext context)
->>>>>>>> 967871991141b3f01825d62e82b1ef2075cd6ed6:PetShopAdmin/Controllers/ServicesController.cs
         {
             _context = context;
         }
@@ -33,15 +25,11 @@ namespace PetShopAdmin.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-<<<<<<<< HEAD:PetShopAdmin/Controllers/ProductsAdminController.cs
-              return View(await _context.Product.ToListAsync());
-========
             var services_list = _context.Product.Where(s => s.ProductType.Equals("Service"));
 
               return services_list != null ? 
                           View(await services_list.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Product'  is null.");
->>>>>>>> 967871991141b3f01825d62e82b1ef2075cd6ed6:PetShopAdmin/Controllers/ServicesController.cs
         }
 
         // GET: Products/Details/5
