@@ -35,7 +35,7 @@ namespace PetShop.Controllers
 
             TempData["AboutTitle"] = _cauHinhService.GetCauHinhByTenCauHinh("AboutTitle").GiaTriCauHinh;
             TempData["AboutShortDes"] = _cauHinhService.GetCauHinhByTenCauHinh("AboutShortDescription").GiaTriCauHinh;
-            TempData["AboutImg"] = _cauHinhService.GetCauHinhByTenCauHinh("AboutImg").GiaTriCauHinh;
+            TempData["AboutImg"] = "https://localhost:7087" + _cauHinhService.GetCauHinhByTenCauHinh("AboutImg").GiaTriCauHinh;
             TempData["AboutMission"] = _cauHinhService.GetCauHinhByTenCauHinh("AboutMission").GiaTriCauHinh;
             TempData["AboutVision"] = _cauHinhService.GetCauHinhByTenCauHinh("AboutVision").GiaTriCauHinh;
 

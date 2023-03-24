@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop", "PetShop\PetShop.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject1", "TestProject1\TestProject1.csproj", "{7D1A432A-B642-42CC-841D-E1CEF4F4D852}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShopAdmin", "PetShopAdmin\PetShopAdmin.csproj", "{EBBAAD2B-890E-4835-A15D-FCFD2256834A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShopAdmin", "PetShopAdmin\PetShopAdmin.csproj", "{EBBAAD2B-890E-4835-A15D-FCFD2256834A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

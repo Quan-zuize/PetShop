@@ -34,7 +34,7 @@
         <div class="service-description">
         @*<p>Our pet sitters will come to your home and take care of your pets while you're away. This includes feeding, walking, and providing plenty of love and attention.</p>
         <p>Our pet sitting services are available for all types of pets, including dogs, cats, birds, and other small animals. We can customize our services to meet your specific needs, whether you need daily visits or just a few visits per week.</p>*@
-            @Html.DisplayFor(model => model.Specification)
+            @Html.Raw(model => model.Specification)
         </div>
 
         <!-- Comment Form Start -->
