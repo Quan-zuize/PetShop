@@ -23,11 +23,11 @@
             {
                 <div class="pb-5">
                     <div class="product-item position-relative bg-light d-flex flex-column text-center">
-                        @{
-                            var img_src = "https://localhost:7087" + @Html.DisplayTextFor(modelItem => item.Image);
+                        @*@{
+                            var img_src = "https://localhost:7087" + @Html.DisplayFor(modelItem => item.Image);
                             <img src="@img_src">
-                        }
-
+                        }*@
+                             <img src="data:image;base64,@item.Image"/>
                         <h6 class="text-uppercase">@Html.DisplayFor(modelItem => item.Name)</h6>
                         <h5 class="text-primary mb-0">$@Html.DisplayFor(modelItem => item.Price)</h5>
                         <div class="btn-action d-flex justify-content-center">

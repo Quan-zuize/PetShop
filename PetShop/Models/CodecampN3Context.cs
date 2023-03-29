@@ -170,10 +170,6 @@ public partial class CodecampN3Context : DbContext
             entity.ToTable("Order");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.DeliveryDate)
-                .HasDefaultValueSql("((0))")
-                .HasColumnType("datetime")
-                .HasColumnName("deliveryDate");
             entity.Property(e => e.OrderDate)
                 .HasDefaultValueSql("((0))")
                 .HasColumnType("datetime")

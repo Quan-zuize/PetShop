@@ -148,19 +148,32 @@ namespace PetShop.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Checkout(string Name, string Adress, string Comment, string Email)
         {
-            
-            //var order = new S_Order();
-            //order.Name = Name;
-            //order.Adress = Adress;
-            //order.Region = Region;
-            //order.Email = Email;
-            //order.PhoneNumber = PhoneNumber;
-            //order.DateOrder = DateOrder;
-            return Redirect("Order_Submitted");
+            var cartItems = GetCartItems();
+            var orderDetails = cartItems.Select(cartItem => new OrderDetail
+            {
+                ProductId = cartItem.product.Id,
+                Quantity = cartItem.quantity,
+                Total = (Int32.Parse(cartItem.product.Price) * cartItem.quantity).ToString()
+            }).ToList();
+            var total = orderDetails.Sum(orderDetail => Int32.Parse(orderDetail.Total));
+            var order = new Order()
+            {
+                OrderDate = DateTime.Now,
+                OrderStatus = "Pending",
+                Total = total,
+                Fullname = Name,
+                Address = Address,
+                Telephone = PhoneNumber,
+                Comment = Comment,
+                OrderDetails = orderDetails
+            };
+            //_productService.Orders.Add(order);
+            //dbContext.SaveChanges();
+            _context.Orders.Add(order);
+            _context.SaveChanges();
 
         }
 
-        [Route("Order_Submitted", Name = "Order_Submitted")]
         public ActionResult Order_Submitted()
         {
             return View();
