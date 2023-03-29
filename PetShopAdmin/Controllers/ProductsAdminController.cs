@@ -26,18 +26,22 @@ namespace PetShopAdmin.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Product.ToListAsync());
+            var products_list = _context.Products.Where(s => s.ProductType.Equals("Product"));
+
+            return products_list != null ?
+                          View(await products_list.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Products'  is null.");
         }
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null || _context.Products == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product
+            var product = await _context.Products
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -82,12 +86,12 @@ namespace PetShopAdmin.Controllers
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null || _context.Products == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product.FindAsync(id);
+            var product = await _context.Products.FindAsync(id);
             if (product == null)
             {
                 return NotFound();
@@ -142,12 +146,12 @@ namespace PetShopAdmin.Controllers
         // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null || _context.Products == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product
+            var product = await _context.Products
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -162,14 +166,14 @@ namespace PetShopAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Product == null)
+            if (_context.Products == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.Product'  is null.");
             }
-            var product = await _context.Product.FindAsync(id);
+            var product = await _context.Products.FindAsync(id);
             if (product != null)
             {
-                _context.Product.Remove(product);
+                _context.Products.Remove(product);
             }
             
             await _context.SaveChangesAsync();
@@ -178,11 +182,7 @@ namespace PetShopAdmin.Controllers
 
         private bool ProductExists(int id)
         {
-<<<<<<<< HEAD:PetShopAdmin/Controllers/ProductsAdminController.cs
-          return _context.Product.Any(e => e.Id == id);
-========
-          return (_context.Product?.Any(e => e.Id == id)).GetValueOrDefault();
->>>>>>>> 967871991141b3f01825d62e82b1ef2075cd6ed6:PetShopAdmin/Controllers/ServicesController.cs
+          return _context.Products.Any(e => e.Id == id);
         }
     }
 }

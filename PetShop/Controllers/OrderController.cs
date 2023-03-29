@@ -171,7 +171,6 @@ namespace PetShop.Controllers
                 Telephone = PhoneNumber,
                 Comment = Comment,
                 OrderDetails = orderDetails
-                
             };
             //_productService.Orders.Add(order);
             //dbContext.SaveChanges();
@@ -181,7 +180,6 @@ namespace PetShop.Controllers
             return RedirectToAction("Order_Submitted", "Order");
         }
 
-        [Route("Order_Submitted", Name = "Order_Submitted")]
         public ActionResult Order_Submitted()
         {
             return View();

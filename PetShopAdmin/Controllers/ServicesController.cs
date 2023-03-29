@@ -22,25 +22,25 @@ namespace PetShopAdmin.Controllers
             _context = context;
         }
 
-        // GET: Products
+        // GET: Services
         public async Task<IActionResult> Index()
         {
-            var services_list = _context.Product.Where(s => s.ProductType.Equals("Service"));
+            var services_list = _context.Products.Where(s => s.ProductType.Equals("Service"));
 
-              return services_list != null ? 
+            return services_list != null ? 
                           View(await services_list.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Product'  is null.");
+                          Problem("Entity set 'ApplicationDbContext.Products'  is null.");
         }
 
-        // GET: Products/Details/5
+        // GET: Services/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null || _context.Products == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product
+            var product = await _context.Products
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -50,13 +50,13 @@ namespace PetShopAdmin.Controllers
             return View(product);
         }
 
-        // GET: Products/Create
+        // GET: Services/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Products/Create
+        // POST: Services/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -82,15 +82,15 @@ namespace PetShopAdmin.Controllers
             return View(product);
         }
 
-        // GET: Products/Edit/5
+        // GET: Services/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null || _context.Products == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product.FindAsync(id);
+            var product = await _context.Products.FindAsync(id);
             if (product == null)
             {
                 return NotFound();
@@ -98,7 +98,7 @@ namespace PetShopAdmin.Controllers
             return View(product);
         }
 
-        // POST: Products/Edit/5
+        // POST: Services/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -142,15 +142,15 @@ namespace PetShopAdmin.Controllers
             return View(product);
         }
 
-        // GET: Products/Delete/5
+        // GET: Services/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null || _context.Products == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product
+            var product = await _context.Products
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -160,19 +160,19 @@ namespace PetShopAdmin.Controllers
             return View(product);
         }
 
-        // POST: Products/Delete/5
+        // POST: Services/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Product == null)
+            if (_context.Products == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Product'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Products'  is null.");
             }
-            var product = await _context.Product.FindAsync(id);
+            var product = await _context.Products.FindAsync(id);
             if (product != null)
             {
-                _context.Product.Remove(product);
+                _context.Products.Remove(product);
             }
             
             await _context.SaveChangesAsync();
@@ -181,11 +181,7 @@ namespace PetShopAdmin.Controllers
 
         private bool ProductExists(int id)
         {
-<<<<<<<< HEAD:PetShopAdmin/Controllers/ProductsAdminController.cs
-          return _context.Product.Any(e => e.Id == id);
-========
-          return (_context.Product?.Any(e => e.Id == id)).GetValueOrDefault();
->>>>>>>> 967871991141b3f01825d62e82b1ef2075cd6ed6:PetShopAdmin/Controllers/ServicesController.cs
+          return (_context.Products?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

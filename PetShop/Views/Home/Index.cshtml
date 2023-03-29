@@ -8,8 +8,9 @@
     Newtonsoft.Json.Linq.JObject second_plan = (Newtonsoft.Json.Linq.JObject)ViewData["Second_plan"];
     Newtonsoft.Json.Linq.JObject third_plan = (Newtonsoft.Json.Linq.JObject)ViewData["Third_plan"];
 
-    var img_src_start = "https://localhost:7087" + @bannerImgs[0].Image;
-    var img_src_offer = "https://localhost:7087" + @bannerImgs[1].Image;
+    var img_src_start = @bannerImgs[0].Image;
+    var img_src_offer = @bannerImgs[1].Image;
+    var img_src_about = @TempData["AboutImg"];
 }
 
 <!-- Hero Start -->
@@ -58,7 +59,7 @@
         <div class="row gx-5">
             <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
                 <div class="position-relative h-100">
-                    <img class="position-absolute w-100 h-100 rounded" src="@TempData["AboutImg"]" style="object-fit: cover;">
+                    <img class="position-absolute w-100 h-100 rounded" src="@img_src_about" style="object-fit: cover;">
                 </div>
             </div>
             <div class="col-lg-7">
